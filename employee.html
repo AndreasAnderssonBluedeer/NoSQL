@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="styles/home.css">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Bootstrap Javascript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <!-- Javascript -->
+    <!--<script src="scripts/app.js"></script>-->
+    <meta charset="UTF-8">
+    <title>Home- NoSql</title>
+</head>
+<body>
+<section>
+  <div id="div">
+  <p>
+    <a href="home.html">
+      <img src="images/COFFEEBEAVERLOGO.png">
+    </a>
+  </p>
+</div>
+
+<div id="div">
+  <p id="p1"> Welcome minion! Get to work! </p>
+</div>
+
+<div3>
+  <form class="form-inline" id="beans_order">
+    <div class="form-group">
+      <label for="exampleSelect1">Beans:</label>
+      <select class="form-control" id="beans">
+        <option>Whole-Bean Coffee</option>
+        <option>Espresso Roast</option>
+        <option>Whole Bean French Roast</option>
+        <option>Whole Bean Light Roast</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="amount" class="form-control" id="amount" min="1" data-bind="value:amount">
+      <button type="submit" class="btn btn-primary">Add to order</button>
+    </div>
+  </form>
+
+  <form class="form-inline" id="drink_order">
+    <div class="form-group">
+      <label for="exampleSelect1">Drinks:</label>
+      <select class="form-control" id="drinks">
+        <option>Brewed Coffee</option>
+        <option>Espresso</option>
+        <option>Latte</option>
+        <option>Capuccino</option>
+        <option>Hot Chocolate</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="amount" class="form-control" id="amount" min="1" data-bind="value:amount">
+      <button type="submit" class="btn btn-primary">Add to order</button>
+    </div>
+  </form>
+
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="exampleSelect1">Milk:</label>
+      <select class="form-control" id="exampleSelect1">
+        <option>Skim Milk</option>
+        <option>Soy Milk</option>
+        <option>Whole Milk</option>
+        <option>2% Milk</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="amount" class="form-control" id="amount" min="1" data-bind="value:amount">
+      <button type="submit" class="btn btn-primary">Add to order</button>
+    </div>
+  </form>
+
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="exampleSelect1">Additions/Flavours:</label>
+      <select class="form-control" id="exampleSelect1">
+        <option>Whipped Cream</option>
+        <option>Vanilla Syrup</option>
+        <option>Caramel Syrup</option>
+        <option>Irish Cream Syrup</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="amount" class="form-control" id="amount" min="1" data-bind="value:amount">
+      <button type="submit" class="btn btn-primary">Add to order</button>
+    </div>
+  </form>
+
+  <p id="p1">Order:</p>
+
+
+</section>
+
+<!--Footer-->
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">NoSQL project by Andreas Andersson, Gabriel Ekstedt, Jody O'Neil and Sara-Sofia Lundin</p>
+    </div>
+</footer>
+
+</body>
+</html>
