@@ -12,20 +12,27 @@ function getKeyValue(result){
     var str = "";
     for (key in x) {
         if (x.hasOwnProperty(key)) {
-            if(x[key] == '[object Object]'){
+            if(Array.isArray(x[key])){
+                str = str + key + ": \n";
+                var a = x[key];
+                for (var i = 0; i < a.length; i++) {
+                    str += getKeyValue(a[i]);
+                }
+            }else if(typeof x[key]===Object){
+                console.log(Object.prototype.toString.call(x[key]));
                 str = str + key + ": \n";
                 var y = x[key];
                 for (var i = 0; i < y.length; i++) {
                     str += getKeyValue(y[i]);
                 }
             }else{
+                 //console.log(key + " = " + x[key]);
                 str = str + key + " = " + x[key] + "\n";
             }
         }
     }
     return str;
 }
-
 
 // fetching employee data.
 function getEmployee(){
@@ -35,7 +42,8 @@ function getEmployee(){
         db.collection("employee").find({}).toArray(function(err, result) {
             if (err) throw err;
             for (var i = 0; i < result.length; i++) {
-            console.log(getKeyValue(result[i]));
+                console.log(result[i]);
+                //console.log(getKeyValue(result[i]));
             }
         db.close();
         });
@@ -45,13 +53,14 @@ function getEmployee(){
 // fetching branch data.
 function getBranch(){
     MongoClient.connect(getDB(), function(err, db) {
-        console.log("");
         if (err) throw err;
         db.collection("branch").find({}).toArray(function(err, result) {
             if (err) throw err;
             for (var i = 0; i < result.length; i++) {
                 console.log(getKeyValue(result[i]));
+                console.log(getKeyValue(result[i].branchaddress));
             }
+
         db.close();
         });
     });
@@ -65,14 +74,19 @@ function getMeberclub(){
         db.collection("memberclub").find({}).toArray(function(err, result) {
             if (err) throw err;
             for (var i = 0; i < result.length; i++) {
-                console.log(getKeyValue(result[i]));
+                console.log (result[i]);
+                //console.log(getKeyValue(result[i]));
             }
         db.close();
         });
     });
 }
 
-getEmployee();
+//getEmployee();
+
+getBranch();
+
+//getMeberclub();
 //update
 //MongoClient.connect(url, function(err, db) {
 //  if (err) throw err;
