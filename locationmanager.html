@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <head>
+  <link rel="shortcut icon" type="image/x-icon" href="images/cb_icon.ico" />
+    </head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,7 +25,8 @@
     <!-- Javascript -->
     <!--<script src="scripts/app.js"></script>-->
     <meta charset="UTF-8">
-    <title>Home- NoSql</title>
+    <title>Location Manager - CB </title>
+    <script src="scripts/location.js"></script>
 </head>
 <body>
 <section>
@@ -34,79 +39,79 @@
 </div>
 
 <div2 id="div">
-  <p1 id="p1"> Welcome! What do you need today? </p1>
+  <p1 id="p1"> Welcome! What report do you need today? </p1>
 </div2>
 
-<div3>
-  <form>
+<div class="form-group">
+  <label for="inputBranch">Which branch do you manage?</label>
+  <select class="form-control" id="inputBranch">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+  </select>
+</div>
+
+<select class="div-toggle" data-target=".my-info-1">
+<option>----Select report----</option>
+  <option value="sales_time" data-show=".sales">Sales during time</option>
+  <option value="orders_employee_time" data-show=".orders">Orders per employee and time</option>
+</select>
+
+<div class="my-info-1">
+  <div class="sales hide">
+      Please fill out the form to receive the report.
+    <form>
+        <div class="form-group">
+          <label for="inputStartDate">Starting date:</label>
+          <input type="number" class="form-control" id="inputID" placeholder="YYYY-MM-DD">
+        </div>
+        <div class="form-group">
+          <label for="inputEndDate">End date</label>
+          <input type="number" class="form-control" id="inputID" placeholder="YYYY-MM-DD">
+        </div>
+        <button type="submit" class="btn btn-primary">Request</button>
+    </form>
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <label for="exampleSelect1">Example select</label>
-      <select class="form-control" id="exampleSelect1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="exampleSelect2">Example multiple select</label>
-      <select multiple class="form-control" id="exampleSelect2">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="exampleTextarea">Example textarea</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-      <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-    </div>
-    <fieldset class="form-group">
-      <legend>Radio buttons</legend>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-          Option one is this and that&mdash;be sure to include why it's great
-        </label>
+      <div class="panel panel-default">
+        <label for="Report">Report</label>
+        <div class="panel-body"> </div>
+        </div>
       </div>
-      <div class="form-check">
-      <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
-          Option two can be something else and selecting it will deselect option one
-        </label>
+  </div>
+
+  <div class="orders hide">
+    Please fill out the form to receive the report.
+    <form>
+        <div class="form-group">
+          <label for="inputEmployee">Employee:</label>
+          <select class="form-control" id="inputEmployee">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="inputStartDate">Starting date:</label>
+          <input type="number" class="form-control" id="inputID" placeholder="YYYY-MM-DD">
+        </div>
+        <div class="form-group">
+          <label for="inputEndDate">Ending date:</label>
+          <input type="number" class="form-control" id="inputID" placeholder="YYYY-MM-DD">
+        </div>
+        <button type="submit" class="btn btn-primary">Request</button>
+    </form>
+    <div class="form-group">
+      <div class="panel panel-default">
+        <label for="Report">Report</label>
+        <div class="panel-body"> </div>
+        </div>
       </div>
-      <div class="form-check disabled">
-      <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-          Option three is disabled
-        </label>
-      </div>
-    </fieldset>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="checkbox" class="form-check-input">
-        Check me out
-      </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div3>
+  </div>
+</div>
 
 </section>
 

@@ -18,6 +18,10 @@ width: 100%;
   font-size: 200%;
 }
 
+.hide {
+  display: none;
+}
+
 footer {
     position: fixed;
     bottom: 0;
