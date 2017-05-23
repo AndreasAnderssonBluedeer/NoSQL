@@ -19,8 +19,10 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <!-- Javascript -->
-    <!--<script src="scripts/app.js"></script>-->
-    <meta charset="UTF-8">
+    <script src="scripts/insertAndUpdate.js"></script>
+    <script src="scripts/memberclub.js"></script>
+
+
     <title>Home- NoSql</title>
 </head>
 <body>
@@ -33,7 +35,7 @@
   </p>
 </div>
 
-<div id="div">
+<div class="div">
   <p1 id="p1"> Please fill out the form below. </p1>
 </div>
 
@@ -48,8 +50,8 @@
       <input type="text" class="form-control" id="inputLastName" placeholder="Enter last name">
     </div>
     <div class="form-group">
-      <label for="inputID">Social security number</label>
-      <input type="number" class="form-control" id="inputID" placeholder="YYYYMMDD-XXXX">
+      <label for="inputID">Social security number, Format: YYMMDD-XXXX</label>
+      <input type="text" class="form-control" id="inputID" placeholder="YYMMDD-XXXX">
     </div>
     <div class="form-group">
       <label for="inputAddress">Address</label>
@@ -67,11 +69,20 @@
       <label for="inputCountry">Country</label>
       <input type="text" class="form-control" id="inputCountry" placeholder="Enter country">
     </div>
+      <div class="form-group">
+          <label for="inputRegCountry">Registration Country</label>
+          <input type="text" class="form-control" id="inputRegCountry" placeholder="Enter Reistration country">
+      </div>
     <div class="form-group">
       <label for="inputOccupation">Occupation</label>
-      <input type="number" class="form-control" id="inputOccupation" placeholder="Enter Occupation">
+      <input type="text" class="form-control" id="inputOccupation" placeholder="Enter Occupation">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="form-group">
+          <label for="inputIsEmployee">Employee? Checked=YES</label>
+          <input type="checkbox" id="inputIsEmployee" aria-label="...">
+      </div>
+
+    <button type="button" class="btn btn-primary" onclick="insertMember()">Submit</button>
   </form>
 </div>
 

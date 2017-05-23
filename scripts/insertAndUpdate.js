@@ -6,6 +6,8 @@ var MongoClient = require('mongodb').MongoClient,
 ObjectID = require('mongodb').ObjectID
     , assert = require('assert');
 
+
+
 // Connection URL
 var url = 'mongodb://212.85.88.103:27017/project';
 
@@ -13,14 +15,14 @@ var url = 'mongodb://212.85.88.103:27017/project';
   //  {"productid":400,"amount":1}];
 //createOrder(123,order,"901112-1010");
 
-//createNewMember("Albus","Dumbledore","340310-1423","Principal","Hogwartz drive 32",
-//"1111","Hogsmead","United Kingdom","Ireland",false);
+createNewMember("Albus","Dumbledore","340310-1423","Principal","Hogwartz drive 32",
+"1111","Hogsmead","United Kingdom","Ireland",false);
 
 //createComment("901112-1010","780711-4398","Mouhahah.");
 
 var order2=[{"productid":"5924790ebf0ae68543700e7f","amount":1}];
 
-updateStock(123,order2);
+//updateStock(123,order2);
 
 //Create methods
 
@@ -53,6 +55,7 @@ function createNewMember(firstname,lastname,ssn,occupation,street,zip,city,count
         db.close();
     });
 }
+
 
 //creates a comment about an employee
 function createComment(employeeID,employerID,comment){
@@ -98,3 +101,4 @@ function updateStock(branchID,orderlist){
         db.close();
     });
 }
+
