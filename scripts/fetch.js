@@ -1,74 +1,92 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 
-// Connection URL för databasen
-var url = 'mongodb://212.85.88.103:27017/project';
+// Connection URL for the database.
+function getDB(){
+    return 'mongodb://212.85.88.103:27017/project';
+}
 
-
-
-// In this function we connect to "employee" ang get the document
-
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var query = { name : /^M/ };
-  db.collection("employee").find({}).toArray(function(err, result) {
-    if (err) throw err;
-    //for every position in the document we go trough every post.
-    for (var i = 0; i < result.length; i++) {
-        //to print a specific part of the document we
-        //can reach it like this
-        console.log(result[i].firstname);
-        //if we have an agregated position we run it trough
-        //a loop again after we fetch it out of the respons.
-        var x = result[i].comments;
-        console.log(x)
-        for (var i = 0; i < x.length; i++) {
-            console.log(x[i].comment);
+// Fuction for iterating over key values and nested key values.
+function getKeyValue(result){
+    var x = result;
+    var str = "";
+    for (key in x) {
+        if (x.hasOwnProperty(key)) {
+            if(Array.isArray(x[key])){
+                str = str + key + ": \n";
+                var a = x[key];
+                for (var i = 0; i < a.length; i++) {
+                    str += getKeyValue(a[i]);
+                }
+            }else if(typeof x[key]===Object){
+                console.log(Object.prototype.toString.call(x[key]));
+                str = str + key + ": \n";
+                var y = x[key];
+                for (var i = 0; i < y.length; i++) {
+                    str += getKeyValue(y[i]);
+                }
+            }else{
+                 //console.log(key + " = " + x[key]);
+                str = str + key + " = " + x[key] + "\n";
+            }
         }
     }
-    db.close();
-  });
-});
+    return str;
+}
 
-//test
+// fetching employee data.
+function getEmployee(){
+    MongoClient.connect(getDB(), function(err, db) {
+        if (err) throw err;
+        var query = { name : /^M/ };
+        db.collection("employee").find({}).toArray(function(err, result) {
+            if (err) throw err;
+            for (var i = 0; i < result.length; i++) {
+                console.log(result[i]);
+                //console.log(getKeyValue(result[i]));
+            }
+        db.close();
+        });
+    });
+}
 
+// fetching branch data.
+function getBranch(){
+    MongoClient.connect(getDB(), function(err, db) {
+        if (err) throw err;
+        db.collection("branch").find({}).toArray(function(err, result) {
+            if (err) throw err;
+            for (var i = 0; i < result.length; i++) {
+                console.log(getKeyValue(result[i]));
+                console.log(getKeyValue(result[i].branchaddress));
+            }
 
-MongoClient.connect(url, function(err, db) {
-    console.log("");
-    if (err) throw err;
-    db.collection("branch").find({}).toArray(function(err, result) {
-    if (err) throw err;
-    for (var i = 0; i < result.length; i++) {
-        console.log("");
-        console.log(result[i]);
-        console.log("");
-        console.log(result[i].order);
-        console.log("");
-        console.log(result[i].products);
-        console.log("");
-        console.log(result[i].productshistory);
-    }
-    //console.log(result);
-    db.close();
-  });
-});
+        db.close();
+        });
+    });
+}
 
-MongoClient.connect(url, function(err, db) {
-    console.log("memberclub");
-    if (err) throw err;
-    db.collection("memberclub").find({}).toArray(function(err, result) {
-    if (err) throw err;
-    for (var i = 0; i < result.length; i++) {
-        console.log("här");
-        console.log(result[i]);
-    }
-    //console.log(result);
-    db.close();
-  });
-});
+// fetching memberclub data:
+function getMeberclub(){
+    MongoClient.connect(getDB(), function(err, db) {
+        console.log("memberclub");
+        if (err) throw err;
+        db.collection("memberclub").find({}).toArray(function(err, result) {
+            if (err) throw err;
+            for (var i = 0; i < result.length; i++) {
+                console.log (result[i]);
+                //console.log(getKeyValue(result[i]));
+            }
+        db.close();
+        });
+    });
+}
 
+//getEmployee();
 
+getBranch();
 
+//getMeberclub();
 //update
 //MongoClient.connect(url, function(err, db) {
 //  if (err) throw err;
