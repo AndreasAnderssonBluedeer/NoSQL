@@ -1,4 +1,5 @@
-function onLaod(){
+
+function onLoad(){
     var formBeans = document.getElementById("beans_order");
     formBeans.addEventListener("submit", function(event) {
         event.preventDefault();
@@ -11,55 +12,50 @@ function onLaod(){
         }
     }
 
-    var formDrink = document.getElementById("drink_order");
-    formBeans.addEventListener("submit", function(event) {
+    var formDrinks = document.getElementById("drink_order");
+    formDrinks.addEventListener("submit", function(event) {
         event.preventDefault();
-        var beans = document.getElementsByName("drinks");
-        var beanAmount = document.getElementById('amountBeans').value
+        var drinks = document.getElementsByName("drinks");
+        var drinkAmount = document.getElementById('amountDrinks').value
         for(var i = 0; i < beans.length; i++) {
-            if(beans[i].checked == true) {
-                bean = beans[i].value;
+            if(drinks[i].checked == true) {
+                drink = drinks[i].value;
             }
         }
     }
 
+    var formMilks = document.getElementById("milk_order");
+    formMilks.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var milks = document.getElementsByName("milks");
+        var milkAmount = document.getElementById('amountMilks').value
+        for(var i = 0; i < beans.length; i++) {
+            if(milks[i].checked == true) {
+                milk = milks[i].value;
+            }
+        }
+    }
 
-  var elements = document.getElementById("apply-for-pet").elements;
-  if (this.elements.firstname.value.length<=50) {
-    isCorrectString+= "Firstname: "+this.elements.firstname.value+"\n";
-  }else{
-    boo = false;
-    notOkString += "Firstname name is too long\n";
-  }
-  if (this.elements.lastname.value.length<=50) {
-    isCorrectString+= "Lastname: "+this.elements.lastname.value+"\n";
-  }else{
-    boo = false;
-    notOkString += "Lastname name is too long\n";
-  }
-  if (!isNaN(this.elements.age.value)) {
-    isCorrectString+= "Age: "+this.elements.age.value+"\n";
-  }else{
-    boo = false;
-    notOkString += "Age is not a number\n";
-  }
-  if (this.elements.email.value.length<=50) {
-    isCorrectString+= "Email: "+this.elements.email.value+"\n";
-  }else{
-    boo = false;
-    notOkString += "Email is too long\n";
-  }
-  if(boo === false){
-    alert(notOkString);
-  }else{
-    isCorrectString+= "pet "+ selectedPet;
-    var r = confirm(isCorrectString);
-      if (r === true) {
+    var formAdditions = document.getElementById("addition_order");
+    formMilks.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var additions = document.getElementsByName("additions");
+        var additionAmount = document.getElementById('amountAdditions').value
+        for(var i = 0; i < beans.length; i++) {
+            if(additions[i].checked == true) {
+                addition = additions[i].value;
+            }
+        }
+        console.log("shit be happening!");
         event.target.submit();
-      }
-  }
-});
+    }
+
+
 }
+
+
+
+
 
 
 

@@ -11,6 +11,8 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="styles/home.css">
 
+    <!-- Javascript -->
+    <script src="scripts/app.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -18,8 +20,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <!-- Javascript -->
-    <script src="scripts/app.js"></script>
+
     <meta charset="UTF-8">
     <title>Home- NoSql</title>
 </head>
@@ -90,15 +91,15 @@
     </div>
     <div class="form-group">
       <label for="amount">Amount:</label>
-      <input type="amount" class="form-control" id="amount" min="1" data-bind="value:amount">
+      <input type="amount" class="form-control" id="amountDrinks" min="1" data-bind="value:amount">
       <button type="submit" class="btn btn-primary">Add to order</button>
     </div>
   </form>
 
-  <form class="form-inline">
+  <form class="form-inline" id="milk_order">
     <div class="form-group">
       <label for="exampleSelect1">Milk:</label>
-      <select class="form-control" id="exampleSelect1">
+      <select class="form-control" id="milks">
         <option>Skim Milk</option>
         <option>Soy Milk</option>
         <option>Whole Milk</option>
@@ -107,15 +108,15 @@
     </div>
     <div class="form-group">
       <label for="amount">Amount:</label>
-      <input type="amount" class="form-control" id="amount" min="1" data-bind="value:amount">
+      <input type="amount" class="form-control" id="amountMilks" min="1" data-bind="value:amount">
       <button type="submit" class="btn btn-primary">Add to order</button>
     </div>
   </form>
 
-  <form class="form-inline">
+  <form class="form-inline" id="addition_order">
     <div class="form-group">
       <label for="exampleSelect1">Additions/Flavours:</label>
-      <select class="form-control" id="exampleSelect1">
+      <select class="form-control" id="additions">
         <option>Whipped Cream</option>
         <option>Vanilla Syrup</option>
         <option>Caramel Syrup</option>
@@ -124,7 +125,7 @@
     </div>
     <div class="form-group">
       <label for="amount">Amount:</label>
-      <input type="amount" class="form-control" id="amount" min="1" data-bind="value:amount">
+      <input type="amount" class="form-control" id="amountAdditions" min="1" data-bind="value:amount">
       <button type="submit" class="btn btn-primary">Add to order</button>
     </div>
   </form>
