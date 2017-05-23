@@ -15,6 +15,10 @@ function insertMember(){
     regCountry=document.getElementById('inputRegCountry').value;
     isEmployee=document.getElementById('inputIsEmployee').checked;
 
+    document.getElementById('memberform').reset();
+
     console.log("Res:"+firstname,lastname,ssn,occupation,street,zip,city,country,regCountry,isEmployee);
     createNewMember(firstname,lastname,ssn,occupation,street,zip,city,country,regCountry,isEmployee);
+
+
 }
