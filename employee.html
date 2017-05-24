@@ -1,40 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Home- NoSql</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
     <!-- Style CSS -->
     <link rel="stylesheet" href="styles/home.css">
-
     <!-- Javascript -->
     <script src="scripts/app.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
     <!-- Bootstrap Javascript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
-    <meta charset="UTF-8">
-    <title>Home- NoSql</title>
 </head>
-<body onload="onLoad();">
-<section>
-  <div id="div">
-  <p>
-    <a href="home.html">
-      <img src="images/COFFEEBEAVERLOGO.png">
-    </a>
-  </p>
-</div>
+<body onload="Load()">
+    <section>
+      <div id="div">
+          <p>
+            <a href="home.html">
+              <img src="images/COFFEEBEAVERLOGO.png">
+        </a>
+      </p>
+    </div>
 
-<div id="div">
+    <div id="div">
   <p id="p1"> Welcome minion! Get to work! </p>
 </div>
 
@@ -61,82 +56,81 @@
 </div>
 
 <div>
-  <form class="form-inline" id="beans_order">
-    <div class="form-group">
-      <label for="exampleSelect1">Beans:</label>
-      <select class="form-control" id="beans">
-        <option>Whole-Bean Coffee</option>
-        <option>Espresso Roast</option>
-        <option>Whole Bean French Roast</option>
-        <option>Whole Bean Light Roast</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="amount">Amount:</label>
-      <input type="amount" class="form-control" id="amountBeans" min="1" data-bind="value:amount">
-      <button type="submit" class="btn btn-primary">Add to order</button>
-    </div>
-  </form>
+    <form class="form-inline" id="beans_order">
+        <div class="form-group">
+            <label for="exampleSelect1">Beans:</label>
+            <select class="form-control" id="beans">
+                <option>Whole-Bean Coffee</option>
+                <option>Espresso Roast</option>
+                <option>Whole Bean French Roast</option>
+                <option>Whole Bean Light Roast</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="amount" class="form-control" id="amountBeans" min="1" data-bind="value:amount">
+            <button type="submit" class="btn btn-primary">Add to order</button>
+        </div>
+    </form>
 
-  <form class="form-inline" id="drink_order">
-    <div class="form-group">
-      <label for="exampleSelect1">Drinks:</label>
-      <select class="form-control" id="drinks">
-        <option>Brewed Coffee</option>
-        <option>Espresso</option>
-        <option>Latte</option>
-        <option>Capuccino</option>
-        <option>Hot Chocolate</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="amount">Amount:</label>
-      <input type="amount" class="form-control" id="amountDrinks" min="1" data-bind="value:amount">
-      <button type="submit" class="btn btn-primary">Add to order</button>
-    </div>
-  </form>
+    <form class="form-inline" id="drink_order">
+        <div class="form-group">
+            <label for="exampleSelect1">Drinks:</label>
+            <select class="form-control" id="drinks">
+                <option>Brewed Coffee</option>
+                <option>Espresso</option>
+                <option>Latte</option>
+                <option>Capuccino</option>
+                <option>Hot Chocolate</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="amount" class="form-control" id="amountDrinks" min="1" data-bind="value:amount">
+            <button type="submit" class="btn btn-primary">Add to order</button>
+        </div>
+    </form>
 
-  <form class="form-inline" id="milk_order">
-    <div class="form-group">
-      <label for="exampleSelect1">Milk:</label>
-      <select class="form-control" id="milks">
-        <option>Skim Milk</option>
-        <option>Soy Milk</option>
-        <option>Whole Milk</option>
-        <option>2% Milk</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="amount">Amount:</label>
-      <input type="amount" class="form-control" id="amountMilks" min="1" data-bind="value:amount">
-      <button type="submit" class="btn btn-primary">Add to order</button>
-    </div>
-  </form>
+    <form class="form-inline" id="milk_order">
+        <div class="form-group">
+            <label for="exampleSelect1">Milk:</label>
+            <select class="form-control" id="milks">
+                <option>Skim Milk</option>
+                <option>Soy Milk</option>
+                <option>Whole Milk</option>
+                <option>2% Milk</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="amount" class="form-control" id="amountMilks" min="1" data-bind="value:amount">
+            <button type="submit" class="btn btn-primary">Add to order</button>
+        </div>
+    </form>
 
-  <form class="form-inline" id="addition_order">
-    <div class="form-group">
-      <label for="exampleSelect1">Additions/Flavours:</label>
-      <select class="form-control" id="additions">
-        <option>Whipped Cream</option>
-        <option>Vanilla Syrup</option>
-        <option>Caramel Syrup</option>
-        <option>Irish Cream Syrup</option>
-      </select>
+    <form class="form-inline" id="addition_order">
+        <div class="form-group">
+            <label for="exampleSelect1">Additions/Flavours:</label>
+            <select class="form-control" id="additions">
+                <option>Whipped Cream</option>
+                <option>Vanilla Syrup</option>
+                <option>Caramel Syrup</option>
+                <option>Irish Cream Syrup</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="amount" class="form-control" id="amountAdditions" min="1" data-bind="value:amount">
+            <button type="submit" class="btn btn-primary">Add to order</button>
+        </div>
+    </form>
+
+    <p id="p1">Order:</p>
+
+    <div id="adder">
+
     </div>
-    <div class="form-group">
-      <label for="amount">Amount:</label>
-      <input type="amount" class="form-control" id="amountAdditions" min="1" data-bind="value:amount">
-      <button type="submit" class="btn btn-primary">Add to order</button>
-    </div>
-  </form>
-
-  <p id="p1">Order:</p>
-
-    <div>
-
-    </div>
-
-</section>
+    </section>
 
 <!--Footer-->
 <footer class="footer">
