@@ -1,41 +1,59 @@
-var http = require("http");
-var fs = require("fs");
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+var way = "D:/db/NoSQL";
+
+app.set('view engine', 'ejs');
+
+//helps us get the pictures and css.
+app.use('/styles', express.static('styles'));
+app.use('/images', express.static('images'));
+
+app.post('/employee', urlencodedParser, function(req, res) {
+    console.log(req.body);
+    testSendToDB();
+});
+app.get('/profile/:name', function(req, res) {
+    var data = {age: 29, job: "codemonkey", hobbies: ['eating','fighting','and so on']}
+    res.render('profile',{person:req.params.name, data: data});
+});
+app.get('/employee', function(req, res) {
+    res.render('employee');
+});
+app.get('/employer', function(req, res) {
+    res.render('employer');
+});
+app.get('/home', function(req, res) {
+    res.render('home');
+});
+app.get('/locationmanager', function(req, res) {
+    res.render('locationmanager');
+});
+app.get('/memberclub', function(req, res) {
+    res.render('memberclub');
+});
+
+app.listen(3000);
+
+
 function getDB(){
     return 'mongodb://212.85.88.103:27017/schoolProject';
 }
-var server = http.createServer(function (request, response) {
-    if(request.url==='/memberclub.html'){
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        var readStream = fs.createReadStream(__dirname +'/../memberclub.html', 'utf8');
-        readStream.pipe(response);
-    }else if(request.url==='/employee.html'){
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        var readStream = fs.createReadStream(__dirname +'/../employee.html', 'utf8');
-        readStream.pipe(response);
-    }else if(request.url==='/employer.html'){
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        var readStream = fs.createReadStream(__dirname +'/../employer.html', 'utf8');
-        readStream.pipe(response);
-    }else if(request.url==='/locationmanager.html'){
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        var readStream = fs.createReadStream(__dirname +'/../locationmanager.html', 'utf8');
-        readStream.pipe(response);
-    }else{
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        var readStream = fs.createReadStream(__dirname +'/../home.html', 'utf8');
-        readStream.pipe(response);
-    }
-});
-server.listen(3000);
-// Console will print the message
-console.log('Server running at http://127.0.0.1:3000/');
-
-
-
-
-function Load(){
+function testSendToDB(){
+    MongoClient.connect(getDB(), function(err, db) {
+        if (err) throw err;
+        var query = {"name" : "Erol", "lastName": "the Berrol"};
+        db.collection("Employee").insert(query, function(err, response){
+            if (err) throw err;
+            console.log(response);
+        });
+        db.close();
+    });
+}
+/*function Load(){
     var formBeans = document.getElementById("beans_order");
     formBeans.addEventListener("submit", function(event) {
         event.preventDefault();

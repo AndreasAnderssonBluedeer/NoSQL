@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="images/cb_icon.ico" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Style CSS -->
+    <link href="styles/home.css" rel="stylesheet" type="text/css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="scripts/jquery.min.js"></script>
+    <!-- Bootstrap Javascript -->
+    <script src="scripts/bootstrap.min.js"></script>
+    <!-- Javascript -->
+    <!--<script src="scripts/app.js"></script>-->
+    <meta charset="UTF-8">
+    <title>Home - CoffeBeaver</title>
+</head>
+<body>
+    <% include partials/nav.ejs %>
+<section>
+  <div>
+  <p>
+    <a href="/home">
+      <img src="images/COFFEEBEAVERLOGO.png">
+    </a>
+  </p>
+</div>
+
+<div>
+  <p1 id="p1"> Welcome! Who are you at our company? </p1>
+</div>
+
+<div>
+  <ul class="nav nav-pills nav-stacked">
+    <li role="presentation"><a href="/employee">Employee</a></li>
+    <li role="presentation"><a href="/locationmanager">Location Manager</a></li>
+    <li role="presentation"><a href="/employer">Employer</a></li>
+    <li role="presentation"><a href="/memberclub">Member Club</a></li>
+  </ul>
+</div>
+
+</section>
+
+<!--Footer-->
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">NoSQL project by Andreas Andersson, Gabriel Ekstedt, Jody O'Neil and Sara-Sofia Lundin</p>
+    </div>
+</footer>
+
+</body>
+</html>

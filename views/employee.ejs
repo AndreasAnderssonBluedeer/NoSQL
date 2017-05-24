@@ -5,31 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- Style CSS -->
-    <link rel="stylesheet" href="styles/home.css">
-    <!-- Javascript -->
-    <script src="scripts/app.js"></script>
+    <link href="styles/home.css" rel="stylesheet" type="text/css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="scripts/jquery.min.js"></script>
     <!-- Bootstrap Javascript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+    <script src="scripts/bootstrap.min.js"></script>
 </head>
 <body>
+    <% include partials/nav.ejs %>
     <section>
-      <div id="div">
+      <div>
           <p>
-            <a href="home.html">
+            <a href="/home">
               <img src="images/COFFEEBEAVERLOGO.png">
         </a>
       </p>
     </div>
 
-    <div id="div">
+    <div>
   <p id="p1"> Welcome minion! Get to work! </p>
 </div>
 
@@ -56,7 +51,7 @@
 </div>
 
 <div>
-    <form class="form-inline" id="beans_order">
+    <form class="form-inline" id="beans_order" method="POST" action="/employee">
         <div class="form-group">
             <label for="exampleSelect1">Beans:</label>
             <select class="form-control" id="beans">
@@ -87,7 +82,7 @@
         <div class="form-group">
             <label for="amount">Amount:</label>
             <input type="amount" class="form-control" id="amountDrinks" min="1" data-bind="value:amount">
-            <button type="submit" class="btn btn-primary">Add to order</button>
+            <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
         </div>
     </form>
 
@@ -104,7 +99,7 @@
         <div class="form-group">
             <label for="amount">Amount:</label>
             <input type="amount" class="form-control" id="amountMilks" min="1" data-bind="value:amount">
-            <button type="submit" class="btn btn-primary">Add to order</button>
+            <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
         </div>
     </form>
 
@@ -121,14 +116,14 @@
         <div class="form-group">
             <label for="amount">Amount:</label>
             <input type="amount" class="form-control" id="amountAdditions" min="1" data-bind="value:amount">
-            <button type="submit" class="btn btn-primary">Add to order</button>
+            <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
         </div>
     </form>
 
     <p id="p1">Order:</p>
 
     <div id="adder">
-        <button type="button" class="btn btn-primary" onclick="testSendToDB()">Add to order</button>
+        <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
     </div>
     </section>
 
