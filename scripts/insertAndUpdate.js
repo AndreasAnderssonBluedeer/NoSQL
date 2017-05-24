@@ -43,6 +43,14 @@ function createOrder(branchID,orderlist,cashierID){
 
 //Creates a new member in the memberClub including creating a new card. Card counter = 0, Barcode auto_inc
 function createNewMember(firstname,lastname,ssn,occupation,street,zip,city,country,regCountry,isEmployee){
+
+    //****** TEmporary for test purposes ***********
+    var MongoClient = require('mongodb').MongoClient,
+        ObjectID = require('mongodb').ObjectID
+        , assert = require('assert');
+
+    var url = 'mongodb://212.85.88.103:27017/project';
+//*****************************************************
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         console.log("Connected successfully to server");

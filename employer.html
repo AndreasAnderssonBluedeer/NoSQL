@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <head>
+  <link rel="shortcut icon" type="image/x-icon" href="images/cb_icon.ico" />
+    </head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,7 +25,7 @@
     <!-- Javascript -->
     <!--<script src="scripts/app.js"></script>-->
     <meta charset="UTF-8">
-    <title>Home- NoSql</title>
+    <title>Employer - CB</title>
 </head>
 <body>
 <section>
@@ -33,82 +37,69 @@
   </p>
 </div>
 
-<div2 id="div">
-  <p1 id="p1"> ASSUMING DIRECT CONTROL </p1>
-</div2>
+<div id="div">
+  <p id="p1">Employers only</p>
+</div>
 
 <div3>
-  <form>
+  <form class="form-inline" id="employeeID">
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <label for="exampleSelect1">Example select</label>
-      <select class="form-control" id="exampleSelect1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+      <label for="exampleSelect1">Employee:</label>
+      <select class="form-control" id="employeeID">
+        <option>Andreas</option>
+        <option>Gabriel</option>
+        <option>Jody</option>
+        <option>Sara</option>
       </select>
-    </div>
-    <div class="form-group">
-      <label for="exampleSelect2">Example multiple select</label>
-      <select multiple class="form-control" id="exampleSelect2">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="exampleTextarea">Example textarea</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-      <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-    </div>
-    <fieldset class="form-group">
-      <legend>Radio buttons</legend>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-          Option one is this and that&mdash;be sure to include why it's great
-        </label>
-      </div>
-      <div class="form-check">
-      <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
-          Option two can be something else and selecting it will deselect option one
-        </label>
-      </div>
-      <div class="form-check disabled">
-      <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-          Option three is disabled
-        </label>
-      </div>
-    </fieldset>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="checkbox" class="form-check-input">
-        Check me out
-      </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div3>
+      <button type="submit" class="btn btn-primary">Ok!</button>
+   </div>
+      <br/><br/>
 
-</section>
+<form class="form-inline" id="about_employees">
+    <div class="form-group">
+      <div class="panel panel-default">
+      <label for="id">ID</label>
+        <div class="panel-body"> </div>
+      </div>
+    </div>
+<div class="form-group">
+      <div class="panel panel-default">
+      <label for="firstname">Firstname</label>
+        <div class="panel-body"> </div>
+      </div>
+    </div>
+<div class="form-group">
+      <div class="panel panel-default">
+      <label for="firstname">Lastname</label>
+        <div class="panel-body"> </div>
+      </div>
+    </div>
+  </form>
+
+      <br/>
+   <div class="form-group">
+      <label for="comment">Write new comment:</label><br/>
+      <input type="comment" class="form-control" id="comment" maxlenght="300" data-bind="value:comment">
+   </div><br/>
+    <form class="form-inline" id="employerID">
+    <div class="form-group">
+      <label for="exampleSelect1">Employer:</label>
+      <select class="form-control" id="employerID">
+        <option>Gabriel</option>
+        <option>Jody</option>
+        <option>Sara</option>
+        <option>Andreas</option>
+      </select>
+
+   </div>
+      <button type="submit" class="btn btn-primary">Ok!</button>
+  </form>
+    </div>
+  </form>
+
+
+
+
 
 <!--Footer-->
 <footer class="footer">
