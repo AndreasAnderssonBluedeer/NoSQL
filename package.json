@@ -1,7 +1,6 @@
 {
   "name": "nosql",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +9,15 @@
   "license": "ISC",
   "dependencies": {
     "mongodb": "^2.2.26"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bambismurfen/NoSQL.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bambismurfen/NoSQL/issues"
+  },
+  "homepage": "https://github.com/bambismurfen/NoSQL#readme",
+  "description": ""
 }
