@@ -2,8 +2,12 @@ var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({extended: false});
+var bodyParser = require('body-parser')
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 var way = "D:/db/NoSQL";
 
 app.set('view engine', 'ejs');
@@ -12,9 +16,10 @@ app.set('view engine', 'ejs');
 app.use('/styles', express.static('styles'));
 app.use('/images', express.static('images'));
 
-app.post('/employee', urlencodedParser, function(req, res) {
+app.post('/employee',urlencodedParser, function(req, res) {
     console.log(req.body);
-    testSendToDB();
+
+    res.render('employee');
 });
 app.get('/profile/:name', function(req, res) {
     var data = {age: 29, job: "codemonkey", hobbies: ['eating','fighting','and so on']}

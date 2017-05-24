@@ -54,7 +54,7 @@
     <form class="form-inline" id="beans_order" method="POST" action="/employee">
         <div class="form-group">
             <label for="exampleSelect1">Beans:</label>
-            <select class="form-control" id="beans">
+            <select class="form-control" id="beans" name="selectBean">
                 <option>Whole-Bean Coffee</option>
                 <option>Espresso Roast</option>
                 <option>Whole Bean French Roast</option>
@@ -63,15 +63,15 @@
         </div>
         <div class="form-group">
             <label for="amount">Amount:</label>
-            <input type="amount" class="form-control" id="amountBeans" min="1" data-bind="value:amount">
+            <input type="text" name="amountBeans" class="form-control" id="amountBeans" min="1" data-bind="value:amount">
             <button type="submit" class="btn btn-primary">Add to order</button>
         </div>
     </form>
 
-    <form class="form-inline" id="drink_order">
+    <form class="form-inline" id="drink_order" method="POST" action="/employee">
         <div class="form-group">
             <label for="exampleSelect1">Drinks:</label>
-            <select class="form-control" id="drinks">
+            <select class="form-control" id="drinks" name="selectDrinks">
                 <option>Brewed Coffee</option>
                 <option>Espresso</option>
                 <option>Latte</option>
@@ -81,15 +81,15 @@
         </div>
         <div class="form-group">
             <label for="amount">Amount:</label>
-            <input type="amount" class="form-control" id="amountDrinks" min="1" data-bind="value:amount">
+            <input type="text" name="amountDrinks" class="form-control" id="amountDrinks" min="1" data-bind="value:amount">
             <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
         </div>
     </form>
 
-    <form class="form-inline" id="milk_order">
+    <form class="form-inline" id="milk_order" method="POST" action="/employee">
         <div class="form-group">
             <label for="exampleSelect1">Milk:</label>
-            <select class="form-control" id="milks">
+            <select class="form-control" id="milks" name="selectMilks">
                 <option>Skim Milk</option>
                 <option>Soy Milk</option>
                 <option>Whole Milk</option>
@@ -98,15 +98,15 @@
         </div>
         <div class="form-group">
             <label for="amount">Amount:</label>
-            <input type="amount" class="form-control" id="amountMilks" min="1" data-bind="value:amount">
+            <input type="text" name="amountMilks" class="form-control" id="amountMilks" min="1" data-bind="value:amount">
             <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
         </div>
     </form>
 
-    <form class="form-inline" id="addition_order">
+    <form class="form-inline" id="addition_order" method="POST" action="/employee">
         <div class="form-group">
             <label for="exampleSelect1">Additions/Flavours:</label>
-            <select class="form-control" id="additions">
+            <select class="form-control" id="additions" name="selectAdittion">
                 <option>Whipped Cream</option>
                 <option>Vanilla Syrup</option>
                 <option>Caramel Syrup</option>
@@ -115,13 +115,19 @@
         </div>
         <div class="form-group">
             <label for="amount">Amount:</label>
-            <input type="amount" class="form-control" id="amountAdditions" min="1" data-bind="value:amount">
+            <input type="text" name="amountAdditions" class="form-control" id="amountAdditions" min="1" data-bind="value:amount">
             <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
         </div>
     </form>
 
     <p id="p1">Order:</p>
-
+    <div id="TotalOrder">
+        <ul>
+            <% totalOrder.forEach(function(item){ %>
+                <li><%= item %></li>
+            <% }); %>
+        </ul>
+    </div>
     <div id="adder">
         <button type="button" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
     </div>
