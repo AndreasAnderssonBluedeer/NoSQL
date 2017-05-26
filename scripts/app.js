@@ -45,8 +45,7 @@ app.get('/profile/:name', function(req, res) {
     res.render('profile',{person:req.params.name, data: data});
 });
 app.get('/employee', function(req, res) {
-    test();
-    res.render('employee', {orders: getOrders()});
+    res.render('employee', {orders: getOrders(), branch:branch});
 });
 app.get('/employer', function(req, res) {
     res.render('employer');
@@ -86,11 +85,14 @@ function testSendToDB(){
         db.close();
     });
 }
-
+/*
 function test() {
+    branch = {branches:[]};
     var b = fetch.getAdresses();
-    console.log(getKeyValue(b));
+    branch.branches.push({id:b.id ,adress: b.branchaddress.street});
+    console.log(branch);
 }
+
 
 function getKeyValue(result){
     var x = result;
