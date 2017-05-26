@@ -1,21 +1,16 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
-var orders = {"branches":[]};
+var obj;
+var app = require('./app.js');
 // Connection URL for the database.
 function getDB(){
     return 'mongodb://212.85.88.103:27017/project';
 }
-getBranch();
+
 var monkey =[]
 function setAdress(object){
-    console.log("setAdress in fetch: \nid:"+object.id +" name: "+ object.name+"\n");
-    orders.branches.push({id:object.id, street:object.name});
-    var o = orders.branches;
-    monkey.push({id:object.id, street:object.name});
-    console.log("iterating trough order.branches in setAdress: \n");
-    for (var i = 0; i < o.length; i++) {
-        console.log(o[i]);
-    }
+    obj = object
+    console.log("setAdress in fetch: \n"+obj);
 }
 
 
@@ -24,46 +19,46 @@ MongoClient.connect(getDB(), function(err, db) {
     db.collection("branch").find({}).toArray(function(err, result) {
         if (err) throw err;
         for (var i = 0; i < result.length; i++) {
-            setAdress({id:result[i].id, name:result[i].branchaddress.street});
+            setAdress(result[i]);
+            //console.log(result[i]);
         }
     db.close();
     });
 });
 
 module.exports = {
-
-getEmployee: function(){
-    MongoClient.connect(getDB(), function(err, db) {
-        if (err) throw err;
-        var query = { name : /^M/ };
-        db.collection("employee").find({}).toArray(function(err, result) {
+    getEmployee: function(){
+        MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
-            for (var i = 0; i < result.length; i++) {
-                console.log(result[i]);
-                //console.log(getKeyValue(result[i]));
-            }
-        db.close();
+            var query = { name : /^M/ };
+            db.collection("employee").find({}).toArray(function(err, result) {
+                if (err) throw err;
+                for (var i = 0; i < result.length; i++) {
+                    console.log(result[i]);
+                    //console.log(getKeyValue(result[i]));
+                }
+            db.close();
+            });
         });
-    });
-},
-getAdresses(){
-    console.log(monkey+"getAdresses goes off");
-    return monkey;
-},
-getMeberclub: function(){
-    MongoClient.connect(getDB(), function(err, db) {
-        console.log("memberclub");
-        if (err) throw err;
-        db.collection("memberclub").find({}).toArray(function(err, result) {
+    },
+    getAdresses(){
+        console.log("fetch.js, module.exports, getAdresses(): \n"+obj);
+        return obj;
+    },
+    getMeberclub: function(){
+        MongoClient.connect(getDB(), function(err, db) {
+            console.log("memberclub");
             if (err) throw err;
-            for (var i = 0; i < result.length; i++) {
-                console.log (result[i]);
-                //console.log(getKeyValue(result[i]));
-            }
-        db.close();
+            db.collection("memberclub").find({}).toArray(function(err, result) {
+                if (err) throw err;
+                for (var i = 0; i < result.length; i++) {
+                    console.log (result[i]);
+                    //console.log(getKeyValue(result[i]));
+                }
+            db.close();
+            });
         });
-    });
-}
+    }
 }
 
 /*

@@ -7,7 +7,9 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var way = "D:/db/NoSQL";
+var fetch = require('./fetch.js');
 var orders = {orders:[]};
+var branch;
 app.set('view engine', 'ejs');
 function addToOrder(object){
     orders.orders.push({name:object.name, amount:object.amount});
@@ -20,9 +22,7 @@ function getOrders(){
 function clearOrder(){
     orders = {orders:[]};
 }
-function getFetch(){
-    return require('./fetch.js');
-}
+
 //helps us get the pictures and css.
 app.use('/styles', express.static('styles'));
 app.use('/images', express.static('images'));
@@ -46,7 +46,7 @@ app.get('/profile/:name', function(req, res) {
 });
 app.get('/employee', function(req, res) {
     test();
-    res.render('employee', {orders: getOrders(), branch: getBranches()});
+    res.render('employee', {orders: getOrders()});
 });
 app.get('/employer', function(req, res) {
     res.render('employer');
@@ -67,8 +67,7 @@ app.get('/memberclub', function(req, res) {
 app.listen(3000);
 
 function getBranches(){
-    console.log("from method getBranches in app.js: \n" +getFetch().getAdresses());
-    return getFetch().getAdresses();
+    console.log("from method getBranches in app.js: \n"+ fetch.getAdresses());
 }
 function getDB(){
     return 'mongodb://212.85.88.103:27017/project';
@@ -89,12 +88,35 @@ function testSendToDB(){
 }
 
 function test() {
+    var b = fetch.getAdresses();
+    console.log(getKeyValue(b));
+}
 
-    var b = getFetch().getAdresses();
-    console.log("in test: "+b[0]);
-    for (var i = 0; i < b.length; i++) {
-        console.log("in loop in method test in app.js: \n"+b[i]);
+function getKeyValue(result){
+    var x = result;
+    var str = "";
+    for (key in x) {
+        if (x.hasOwnProperty(key)) {
+            if(Array.isArray(x[key])){
+                str = str + key + ": \n";
+                var a = x[key];
+                for (var i = 0; i < a.length; i++) {
+                    str += getKeyValue(a[i]);
+                }
+            }else if(typeof x[key]===Object){
+                console.log(Object.prototype.toString.call(x[key]));
+                str = str + key + ": \n";
+                var y = x[key];
+                for (var i = 0; i < y.length; i++) {
+                    str += getKeyValue(y[i]);
+                }
+            }else{
+                 //console.log(key + " = " + x[key]);
+                str = str + key + " = " + x[key] + "\n";
+            }
+        }
     }
+    return str;
 }
 /*
 function removeItems(){
