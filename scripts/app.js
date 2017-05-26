@@ -2,36 +2,59 @@ var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 // create application/json parser
-var jsonParser = bodyParser.json()
-
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var jsonParser = bodyParser.json();
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var way = "D:/db/NoSQL";
-
+var orders = {orders:[]};
 app.set('view engine', 'ejs');
+function addToOrder(object){
+    orders.orders.push({name:object.name, amount:object.amount});
+    console.log(orders);
+}
 
+function getOrders(){
+    return orders;
+}
+function clearOrder(){
+    orders = {orders:[]};
+}
+function getFetch(){
+    return require('./fetch.js');
+}
 //helps us get the pictures and css.
 app.use('/styles', express.static('styles'));
 app.use('/images', express.static('images'));
 
 app.post('/employee',urlencodedParser, function(req, res) {
-    console.log(req.body);
+    addToOrder(req.body);
 
-    res.render('employee');
+    res.render('employee', getOrders());
+});
+app.post('/clear',urlencodedParser, function(req, res) {
+    clearOrder();
+    res.render('employee', getOrders());
+});
+app.post('/send',urlencodedParser, function(req, res) {
+    sendOrder();
+    res.render('employee', getOrders());
 });
 app.get('/profile/:name', function(req, res) {
-    var data = {age: 29, job: "codemonkey", hobbies: ['eating','fighting','and so on']}
+    var data = {hobbies: ['eating','fighting','and so on']}
     res.render('profile',{person:req.params.name, data: data});
 });
 app.get('/employee', function(req, res) {
-    res.render('employee');
+    test();
+    res.render('employee', {orders: getOrders(), branch: getBranches()});
 });
 app.get('/employer', function(req, res) {
     res.render('employer');
 });
 app.get('/home', function(req, res) {
+    res.render('home');
+});
+app.get('/', function(req, res) {
     res.render('home');
 });
 app.get('/locationmanager', function(req, res) {
@@ -43,9 +66,15 @@ app.get('/memberclub', function(req, res) {
 
 app.listen(3000);
 
-
+function getBranches(){
+    console.log("from method getBranches in app.js: \n" +getFetch().getAdresses());
+    return getFetch().getAdresses();
+}
 function getDB(){
-    return 'mongodb://212.85.88.103:27017/schoolProject';
+    return 'mongodb://212.85.88.103:27017/project';
+}
+function sendOrder(){
+
 }
 function testSendToDB(){
     MongoClient.connect(getDB(), function(err, db) {
@@ -57,6 +86,37 @@ function testSendToDB(){
         });
         db.close();
     });
+}
+
+function test() {
+
+    var b = getFetch().getAdresses();
+    console.log("in test: "+b[0]);
+    for (var i = 0; i < b.length; i++) {
+        console.log("in loop in method test in app.js: \n"+b[i]);
+    }
+}
+/*
+function removeItems(){
+  var buttons = document.getElementsByClassName("remove-list-item");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function() {
+      var r = confirm("Remove this button?");
+        if (r == true) {
+          this.parentNode.removeChild(this);
+        }
+    });
+  }
+}
+function addListItem(object){
+  var ul = document.getElementById("orderItems");
+  var li = document.createElement("li");
+  var button = document.createElement("button");
+  button.className = "remove-list-item";
+  li.appendChild(document.createTextNode(object));
+  li.appendChild(button);
+  ul.appendChild(li);
+
 }
 /*function Load(){
     var formBeans = document.getElementById("beans_order");
