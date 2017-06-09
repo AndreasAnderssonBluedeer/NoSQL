@@ -1,6 +1,7 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var express = require('express');
+var sync = require('synchronize');
 var app = express();
 var bodyParser = require('body-parser');
 // create application/json parser
@@ -15,6 +16,7 @@ function addToOrder(object){
     orders.orders.push({name:object.name, amount:object.amount});
     console.log(orders);
 }
+
 
 function getOrders(){
     return orders;
@@ -45,7 +47,8 @@ app.get('/profile/:name', function(req, res) {
     res.render('profile',{person:req.params.name, data: data});
 });
 app.get('/employee', function(req, res) {
-    res.render('employee', {orders: getOrders(), branch:branch});
+
+    res.render('employee', {orders: getOrders(), branch: fetch.getAdresses()});
 });
 app.get('/employer', function(req, res) {
     res.render('employer');
@@ -61,6 +64,9 @@ app.get('/locationmanager', function(req, res) {
 });
 app.get('/memberclub', function(req, res) {
     res.render('memberclub');
+});
+app.get('/test', function(req, res) {
+    test();
 });
 
 app.listen(3000);
@@ -85,6 +91,21 @@ function testSendToDB(){
         db.close();
     });
 }
+
+function test() {
+    var b = fetch.getAdresses();
+    for (x in b){
+        console.log(x);
+    }
+}
+
+
+
+
+
+
+
+
 /*
 function test() {
     branch = {branches:[]};

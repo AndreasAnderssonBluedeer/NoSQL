@@ -8,8 +8,8 @@ ObjectID = require('mongodb').ObjectID
 
 
 
-// Connection URL
-var url = 'mongodb://212.85.88.103:27017/project';
+// Connection URL //USERNAME:PASSWORD@DBHOST:DBPORT/DBNAME
+var url = 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 
 //var order= [{"productid":123,"amount":3},
   //  {"productid":400,"amount":1}];
@@ -43,14 +43,6 @@ function createOrder(branchID,orderlist,cashierID){
 
 //Creates a new member in the memberClub including creating a new card. Card counter = 0, Barcode auto_inc
 function createNewMember(firstname,lastname,ssn,occupation,street,zip,city,country,regCountry,isEmployee){
-
-    //****** TEmporary for test purposes ***********
-    var MongoClient = require('mongodb').MongoClient,
-        ObjectID = require('mongodb').ObjectID
-        , assert = require('assert');
-
-    var url = 'mongodb://212.85.88.103:27017/project';
-//*****************************************************
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         console.log("Connected successfully to server");
@@ -109,4 +101,3 @@ function updateStock(branchID,orderlist){
         db.close();
     });
 }
-

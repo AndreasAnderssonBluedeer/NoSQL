@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var obj;
-var app = require('./app.js');
+var sync = require('synchronize');
 // Connection URL for the database.
 function getDB(){
     return 'mongodb://212.85.88.103:27017/project';
@@ -13,18 +13,21 @@ function setAdress(object){
     console.log("setAdress in fetch: \n"+obj);
 }
 
-
-MongoClient.connect(getDB(), function(err, db) {
-    if (err) throw err;
-    db.collection("branch").find({}).toArray(function(err, result) {
+function getadd() {
+    console.log("here");
+    MongoClient.connect(getDB(), function(err, db) {
         if (err) throw err;
-        for (var i = 0; i < result.length; i++) {
-            setAdress(result[i]);
-            //console.log(result[i]);
-        }
-    db.close();
+        db.collection("branch").find({}).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(res);
+            for (var i = 0; i < result.length; i++) {
+                setAdress(result[i]);
+                console.log("fetch.js, db.collection(branch) "+ result[i]);
+            }
+        db.close();
+        });
     });
-});
+}
 
 module.exports = {
     getEmployee: function(){
@@ -42,6 +45,7 @@ module.exports = {
         });
     },
     getAdresses(){
+        getadd();
         console.log("fetch.js, module.exports, getAdresses(): \n"+obj);
         return obj;
     },
