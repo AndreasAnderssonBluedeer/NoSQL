@@ -14,7 +14,6 @@
     <script src="scripts/bootstrap.min.js"></script>
 </head>
 <body>
-    <% include partials/nav.ejs %>
     <section>
       <div>
           <p>
@@ -30,9 +29,7 @@
 <div class="form-group">
   <label for="inputBranch">Which branch are you at?</label>
   <select class="form-control" id="inputBranch">
-          <% branch.branches.forEach(function(item){ %>
-              <option>Branch Name: <%= item.name %> </option>
-          <% }); %>
+          
   </select>
 </div>
 

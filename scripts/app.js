@@ -1,7 +1,6 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var express = require('express');
-var sync = require('synchronize');
 var app = express();
 var bodyParser = require('body-parser');
 // create application/json parser
@@ -47,7 +46,7 @@ app.get('/profile/:name', function(req, res) {
 });
 app.get('/employee', function(req, res) {
 
-    res.render('employee', {orders: getOrders(), branch: fetch.getAdresses()});
+    res.render('employee', {orders: getOrders()});
 });
 app.get('/employer', function(req, res) {
     res.render('employer');
@@ -65,14 +64,12 @@ app.get('/memberclub', function(req, res) {
     res.render('memberclub');
 });
 app.get('/test', function(req, res) {
-    test();
+    test(res);
 });
 
 app.listen(3000);
 
-function getBranches(){
-    console.log("from method getBranches in app.js: \n"+ fetch.getAdresses());
-}
+
 function getDB(){
     return 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 }
@@ -91,11 +88,14 @@ function testSendToDB(){
     });
 }
 
-function test() {
-    fetch.getAdresses(bajs);
+function test(res) {
+    fetch.getAdresses(bajs, res);
 }
-function bajs(ob){
-    console.log(ob);
+function bajs(ob, res){
+    for (var i = 0; i < ob.length; i++) {
+        console.log(ob[i]);
+    }
+    res.send(ob);
 }
 
 function hora(ba) {

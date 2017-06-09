@@ -6,34 +6,34 @@ function getDB(){
     return 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 }
 module.exports = {
-    getEmployee: function(x){
+    getEmployee: function(x , res){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
             var query = { name : /^M/ };
             db.collection("employee").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                x(result);
+                x(result, res);
                 db.close();
             });
         });
     },
-    getAdresses(x){
+    getAdresses(x, res){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
             db.collection("branch").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                x(result);
+                x(result, res);
                 db.close();
             });
         });
     },
-    getMeberclub: function(x){
+    getMeberclub: function(x, res){
         MongoClient.connect(getDB(), function(err, db) {
             console.log("memberclub");
             if (err) throw err;
             db.collection("memberclub").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                x(result);
+                x(result, res);
                 db.close();
             });
         });
