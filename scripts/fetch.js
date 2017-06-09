@@ -1,65 +1,40 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var obj;
-var sync = require('synchronize');
 // Connection URL for the database.
 function getDB(){
-    return 'mongodb://212.85.88.103:27017/project';
+    return 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 }
-
-var monkey =[]
-function setAdress(object){
-    obj = object
-    console.log("setAdress in fetch: \n"+obj);
-}
-
-function getadd() {
-    console.log("here");
-    MongoClient.connect(getDB(), function(err, db) {
-        if (err) throw err;
-        db.collection("branch").find({}).toArray(function(err, result) {
-            if (err) throw err;
-            console.log(res);
-            for (var i = 0; i < result.length; i++) {
-                setAdress(result[i]);
-                console.log("fetch.js, db.collection(branch) "+ result[i]);
-            }
-        db.close();
-        });
-    });
-}
-
 module.exports = {
-    getEmployee: function(){
+    getEmployee: function(x){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
             var query = { name : /^M/ };
             db.collection("employee").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                for (var i = 0; i < result.length; i++) {
-                    console.log(result[i]);
-                    //console.log(getKeyValue(result[i]));
-                }
-            db.close();
+                x(result);
+                db.close();
             });
         });
     },
-    getAdresses(){
-        getadd();
-        console.log("fetch.js, module.exports, getAdresses(): \n"+obj);
-        return obj;
+    getAdresses(x){
+        MongoClient.connect(getDB(), function(err, db) {
+            if (err) throw err;
+            db.collection("branch").find({}).toArray(function(err, result) {
+                if (err) throw err;
+                x(result);
+                db.close();
+            });
+        });
     },
-    getMeberclub: function(){
+    getMeberclub: function(x){
         MongoClient.connect(getDB(), function(err, db) {
             console.log("memberclub");
             if (err) throw err;
             db.collection("memberclub").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                for (var i = 0; i < result.length; i++) {
-                    console.log (result[i]);
-                    //console.log(getKeyValue(result[i]));
-                }
-            db.close();
+                x(result);
+                db.close();
             });
         });
     }

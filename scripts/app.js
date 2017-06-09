@@ -31,7 +31,6 @@ app.use('/images', express.static('images'));
 
 app.post('/employee',urlencodedParser, function(req, res) {
     addToOrder(req.body);
-
     res.render('employee', getOrders());
 });
 app.post('/clear',urlencodedParser, function(req, res) {
@@ -75,7 +74,7 @@ function getBranches(){
     console.log("from method getBranches in app.js: \n"+ fetch.getAdresses());
 }
 function getDB(){
-    return 'mongodb://212.85.88.103:27017/project';
+    return 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 }
 function sendOrder(){
 
@@ -93,12 +92,26 @@ function testSendToDB(){
 }
 
 function test() {
-    var b = fetch.getAdresses();
-    for (x in b){
-        console.log(x);
-    }
+    fetch.getAdresses(bajs);
+}
+function bajs(ob){
+    console.log(ob);
 }
 
+function hora(ba) {
+    MongoClient.connect(getDB(), function(err, db) {
+        if (err) throw err;
+        db.collection("branch").find({}).toArray(function(err, result) {
+            if (err) throw err;
+            ba(result);
+            //console.log(gg);
+            /*for (var i = 0; i < result.length; i++) {
+                console.log("fetch.js, db.collection(branch) "+ result[i]);
+            }*/
+        db.close();
+        });
+    });
+}
 
 
 

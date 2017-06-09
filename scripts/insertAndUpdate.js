@@ -11,18 +11,18 @@ ObjectID = require('mongodb').ObjectID
 // Connection URL //USERNAME:PASSWORD@DBHOST:DBPORT/DBNAME
 var url = 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 
-//var order= [{"productid":123,"amount":3},
-  //  {"productid":400,"amount":1}];
-//createOrder(123,order,"901112-1010");
+var order= [{"productid":123,"amount":3},
+            {"productid":400,"amount":1}];
+createOrder(123,order,"901112-1010");
 
-createNewMember("Albus","Dumbledore","340310-1423","Principal","Hogwartz drive 32",
-"1111","Hogsmead","United Kingdom","Ireland",false);
+//createNewMember("Albus","Dumbledore","340310-1423","Principal","Hogwartz drive 32",
+//"1111","Hogsmead","United Kingdom","Ireland",false);
 
-//createComment("901112-1010","780711-4398","Mouhahah.");
+createComment("901112-1010","780711-4398","Mouhahah.");
 
 var order2=[{"productid":"5924790ebf0ae68543700e7f","amount":1}];
 
-//updateStock(123,order2);
+updateStock(123,order2);
 
 //Create methods
 
