@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-// create application/json parser
+var branches = {branches:[]};
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var way = "D:/db/NoSQL";
@@ -30,7 +30,7 @@ app.use('/images', express.static('images'));
 
 app.post('/employee',urlencodedParser, function(req, res) {
     addToOrder(req.body);
-    res.render('employee', getOrders());
+    res.render('employee', {orders: getOrders(), branches:branches});
 });
 app.post('/clear',urlencodedParser, function(req, res) {
     clearOrder();
@@ -46,7 +46,7 @@ app.get('/profile/:name', function(req, res) {
 });
 app.get('/employee', function(req, res) {
 
-    res.render('employee', {orders: getOrders()});
+    res.render('employee', {orders: getOrders(), branches:branches});
 });
 app.get('/employer', function(req, res) {
     res.render('employer');
@@ -64,9 +64,13 @@ app.get('/memberclub', function(req, res) {
     res.render('memberclub');
 });
 app.get('/test', function(req, res) {
+    branches = {branches:[]};
     test(res);
 });
-
+app.post('/test',urlencodedParser, function(req, res) {
+    addToOrder(req.body);
+    res.render('employee', {orders: getOrders(), branches:branches});
+});
 app.listen(3000);
 
 
@@ -92,26 +96,17 @@ function test(res) {
     fetch.getAdresses(bajs, res);
 }
 function bajs(ob, res){
+
     for (var i = 0; i < ob.length; i++) {
-        console.log(ob[i]);
+        console.log(ob[i].Address.Street);
+        branches.branches.push(ob[i].Address.Street);
     }
-    res.send(ob);
+    console.log(branches);
+    res.render('employee', {orders: getOrders(), branches:branches});
+    //res.send(ob);
 }
 
-function hora(ba) {
-    MongoClient.connect(getDB(), function(err, db) {
-        if (err) throw err;
-        db.collection("branch").find({}).toArray(function(err, result) {
-            if (err) throw err;
-            ba(result);
-            //console.log(gg);
-            /*for (var i = 0; i < result.length; i++) {
-                console.log("fetch.js, db.collection(branch) "+ result[i]);
-            }*/
-        db.close();
-        });
-    });
-}
+
 
 
 

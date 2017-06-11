@@ -29,7 +29,9 @@
 <div class="form-group">
   <label for="inputBranch">Which branch are you at?</label>
   <select class="form-control" id="inputBranch">
-          
+      <% branches.branches.forEach(function(item){ %>
+          <option><%= item %></option>
+      <% }); %>
   </select>
 </div>
 
