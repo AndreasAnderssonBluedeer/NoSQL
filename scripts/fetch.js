@@ -6,11 +6,10 @@ function getDB(){
     return 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 }
 module.exports = {
-    getEmployee: function(x , res){
+    getEmployee: function(y , res, x){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
-            var query = { name : /^M/ };
-            db.collection("employee").find({}).toArray(function(err, result) {
+            db.collection("employee").find({"Branch":y},{"firstname":1}).toArray(function(err, result) {
                 if (err) throw err;
                 x(result, res);
                 db.close();
@@ -21,6 +20,16 @@ module.exports = {
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
             db.collection("branch").find({}).toArray(function(err, result) {
+                if (err) throw err;
+                x(result, res);
+                db.close();
+            });
+        });
+    },
+    getBranchID: function(y,res, x) {
+        MongoClient.connect(getDB(), function(err, db) {
+            if (err) throw err;
+            db.collection("branch").find({"Address.Street" : y},{"ID":1}).toArray(function(err, result) {
                 if (err) throw err;
                 x(result, res);
                 db.close();

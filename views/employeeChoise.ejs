@@ -30,13 +30,13 @@
             <p id="p1"> Welcome minion! Get to work! </p>
         </div>
         <div class="form-group">
-            <label for="inputBranch">Which branch are you at?</label>
+            <label for="inputBranch">Who are you?</label>
             <form class="form-inline" id="branch" method="POST" action="/branch">
                 <select class="form-control" id="inputBranch" name="branch">
-      <% branches.branches.forEach(function(item){ %>
-          <option><%= item %></option>
-      <% }); %>
-  </select>
+                  <% branches.branches.forEach(function(item){ %>
+                      <option><%= item %></option>
+                  <% }); %>
+                </select>
                 <button type="submit" class="btn btn-primary">submit</button>
             </form>
         </div>
