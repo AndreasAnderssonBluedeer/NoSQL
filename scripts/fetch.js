@@ -31,7 +31,7 @@ module.exports = {
             if (err) throw err;
             db.collection("branch").find({"Address.Street" : y},{"ID":1}).toArray(function(err, result) {
                 if (err) throw err;
-                x(result, res);
+                x(result, res, setBranchID);
                 db.close();
             });
         });

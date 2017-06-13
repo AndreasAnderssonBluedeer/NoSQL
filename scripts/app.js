@@ -11,9 +11,10 @@ var fetch = require('./fetch.js');
 var orders = {orders:[]};
 var branch;
 app.set('view engine', 'ejs');
-function addToOrder(object){
+function addToOrder(object, res){
     orders.orders.push({name:object.name, amount:object.amount});
     console.log("app.js, addToOrder, the object passed trough as a parameter:\n"+orders);
+    res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 }
 
 
@@ -36,20 +37,20 @@ app.post('/employee',urlencodedParser, function(req, res) {
 app.post('/clear',urlencodedParser, function(req, res) {
     console.log("app.js, post, clear");
     clearOrder();
-    res.render('employee', getOrders());
+    res.render('cashier', getOrders());
 });
 app.post('/send',urlencodedParser, function(req, res) {
     console.log("app.js, post, send");
     sendOrder();
-    res.render('employee', getOrders());
+    res.render('cashier', getOrders());
 });
 app.post('/branch',urlencodedParser, function(req, res) {
     console.log("app.js, post, branch");
     fetch.getBranchID(req.body.branch , res, getEmployees);
 });
 app.post('/cashier',urlencodedParser, function(req, res) {
-    console.log("app.js, post, cashier");
-    console.log(req.body.cashier);
+    console.log("app.js, post, cashier, chosen cashier:\n"+req.body.cashier);
+
     orders = {cashier:req.body.cashier, orders:[]};
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 });
@@ -92,6 +93,10 @@ app.post('/test',urlencodedParser, function(req, res) {
     addToOrder(req.body);
     res.render('employeeChoise', {orders: getOrders(), branches:branches});
 });
+app.post('/addToOrder',urlencodedParser, function(req, res) {
+    console.log("app.js, post, addToOrder");
+    addToOrder(req.body, res);
+});
 app.listen(3000);
 
 
@@ -101,7 +106,9 @@ function getDB(){
 function sendOrder(){
 
 }
-
+function setBranchID(ob){
+    orders.branchID = ob;
+}
 
 function getBranches(ob, res){
     var branches = {branches:[]};
@@ -110,11 +117,12 @@ function getBranches(ob, res){
     }
     res.render('employee', {orders: getOrders(), branches:branches});
 }
-function getEmployees(ob, res) {
+function getEmployees(ob, res, orders) {
     //create function that fetches all the names of employes, or ssn depending on branch.
     for (var i = 0; i < ob.length; i++) {
         console.log("app.js, loop in getEmployees, ID of the object being loopt trough:\n"+ ob[i].ID);
         fetch.getEmployee(ob[i].ID, res, makeEmployeeList);
+
     }
 }
 
