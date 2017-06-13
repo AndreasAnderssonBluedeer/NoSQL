@@ -31,106 +31,15 @@
         </div>
         <div class="form-group">
             <label for="inputBranch">Who are you?</label>
-            <form class="form-inline" id="branch" method="POST" action="/branch">
-                <select class="form-control" id="inputBranch" name="branch">
-                  <% branches.branches.forEach(function(item){ %>
+            <form class="form-inline" id="branch" method="POST" action="/cashier">
+                <select class="form-control" id="inputBranch" name="cashier">
+                  <% employees.employees.forEach(function(item){ %>
                       <option><%= item %></option>
                   <% }); %>
                 </select>
                 <button type="submit" class="btn btn-primary">submit</button>
             </form>
         </div>
-
-        <div>
-            <form class="form-inline" id="beans_order" method="POST" action="/employee">
-                <div class="form-group">
-                    <label for="exampleSelect1">Beans:</label>
-                    <select class="form-control" id="beans" name="name">
-                <option>Whole-Bean Coffee</option>
-                <option>Espresso Roast</option>
-                <option>Whole Bean French Roast</option>
-                <option>Whole Bean Light Roast</option>
-            </select>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Amount:</label>
-                    <input type="text" name="amount" class="form-control" id="amountBeans" min="1" data-bind="value:amount">
-                    <button type="submit" class="btn btn-primary">Add to order</button>
-                </div>
-            </form>
-
-            <form class="form-inline" id="drink_order" method="POST" action="/employee">
-                <div class="form-group">
-                    <label for="exampleSelect1">Drinks:</label>
-                    <select class="form-control" id="drinks" name="name">
-                <option>Brewed Coffee</option>
-                <option>Espresso</option>
-                <option>Latte</option>
-                <option>Capuccino</option>
-                <option>Hot Chocolate</option>
-            </select>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Amount:</label>
-                    <input type="text" name="amount" class="form-control" id="amountDrinks" min="1" data-bind="value:amount">
-                    <button type="submit" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
-                </div>
-            </form>
-
-            <form class="form-inline" id="milk_order" method="POST" action="/employee">
-                <div class="form-group">
-                    <label for="exampleSelect1">Milk:</label>
-                    <select class="form-control" id="milks" name="name">
-                <option>Skim Milk</option>
-                <option>Soy Milk</option>
-                <option>Whole Milk</option>
-                <option>2% Milk</option>
-            </select>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Amount:</label>
-                    <input type="text" name="amount" class="form-control" id="amountMilks" min="1" data-bind="value:amount">
-                    <button type="submit" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
-                </div>
-            </form>
-
-            <form class="form-inline" id="addition_order" method="POST" action="/employee">
-                <div class="form-group">
-                    <label for="exampleSelect1">Additions/Flavours:</label>
-                    <select class="form-control" id="additions" name="name">
-                <option>Whipped Cream</option>
-                <option>Vanilla Syrup</option>
-                <option>Caramel Syrup</option>
-                <option>Irish Cream Syrup</option>
-            </select>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Amount:</label>
-                    <input type="text" name="amount" class="form-control" id="amountAdditions" min="1" data-bind="value:amount">
-                    <button type="submit" class="btn btn-primary" onclick="testSendToDB();">Add to order</button>
-                </div>
-            </form>
-
-            <p id="p1">Order:</p>
-            <div id="TotalOrder">
-                <ul>
-                    <% orders.orders.forEach(function(item){ %>
-                        <li>Item Name:
-                            <%= item.name %> Amount:
-                                <%= item.amount %>
-                        </li>
-                        <% }); %>
-
-                </ul>
-            </div>
-            <div id="adder">
-                <form class="form-inline" method="POST" action="/clear">
-                    <button type="submit" class="btn btn-primary">Clear order.</button>
-                </form>
-                <form class="form-inline" method="POST" action="/send">
-                    <button type="submit" class="btn btn-primary">Send order.</button>
-                </form>
-            </div>
     </section>
 
     <!--Footer-->

@@ -13,7 +13,7 @@ var branch;
 app.set('view engine', 'ejs');
 function addToOrder(object){
     orders.orders.push({name:object.name, amount:object.amount});
-    console.log(orders);
+    console.log("app.js, addToOrder, the object passed trough as a parameter:\n"+orders);
 }
 
 
@@ -29,51 +29,66 @@ app.use('/styles', express.static('styles'));
 app.use('/images', express.static('images'));
 
 app.post('/employee',urlencodedParser, function(req, res) {
+    console.log("app.js, post, employee");
     addToOrder(req.body);
     res.render('employee', {orders: getOrders(), branches:branches});
 });
 app.post('/clear',urlencodedParser, function(req, res) {
+    console.log("app.js, post, clear");
     clearOrder();
     res.render('employee', getOrders());
 });
 app.post('/send',urlencodedParser, function(req, res) {
+    console.log("app.js, post, send");
     sendOrder();
     res.render('employee', getOrders());
 });
 app.post('/branch',urlencodedParser, function(req, res) {
-    var x = req.body.branch;
-    branches = {branches:[]};
-    gitEmployees(res, x);
-    //res.render('employee', getOrders());
+    console.log("app.js, post, branch");
+    fetch.getBranchID(req.body.branch , res, getEmployees);
+});
+app.post('/cashier',urlencodedParser, function(req, res) {
+    console.log("app.js, post, cashier");
+    console.log(req.body.cashier);
+    orders = {cashier:req.body.cashier, orders:[]};
+    res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 });
 app.get('/profile/:name', function(req, res) {
     var data = {hobbies: ['eating','fighting','and so on']}
     res.render('profile',{person:req.params.name, data: data});
 });
 app.get('/employee', function(req, res) {
-
-    res.render('employee', {orders: getOrders(), branches:branches});
+    console.log("app.js, get, employee");
+    branches = {branches:[]};
+    fetch.getAdresses(getBranches, res);
 });
 app.get('/employer', function(req, res) {
+    console.log("app.js, get, employer");
     res.render('employer');
 });
 app.get('/home', function(req, res) {
+    console.log("app.js, get, home");
     res.render('home');
 });
 app.get('/', function(req, res) {
+    console.log("app.js, get, /");
     res.render('home');
 });
 app.get('/locationmanager', function(req, res) {
+    console.log("app.js, get, locationmanager");
     res.render('locationmanager');
 });
 app.get('/memberclub', function(req, res) {
+    console.log("app.js, get, memberclub");
     res.render('memberclub');
 });
 app.get('/test', function(req, res) {
+    console.log("app.js, get, test");
     branches = {branches:[]};
     test(res);
 });
 app.post('/test',urlencodedParser, function(req, res) {
+    console.log("app.js, post, test");
     addToOrder(req.body);
     res.render('employeeChoise', {orders: getOrders(), branches:branches});
 });
@@ -86,30 +101,28 @@ function getDB(){
 function sendOrder(){
 
 }
-function gitEmployees(res, x){
-    fetch.getBranchID(x , res, getEmployees);
-}
 
-function test(res) {
-    fetch.getAdresses(getBranches, res);
-}
+
 function getBranches(ob, res){
+    var branches = {branches:[]};
     for (var i = 0; i < ob.length; i++) {
-        //console.log(ob[i].Address.Street);
         branches.branches.push(ob[i].Address.Street);
     }
-    //console.log(branches);
     res.render('employee', {orders: getOrders(), branches:branches});
 }
 function getEmployees(ob, res) {
     //create function that fetches all the names of employes, or ssn depending on branch.
     for (var i = 0; i < ob.length; i++) {
-        console.log(ob[i].ID);
-        fetch.getEmployees(ob[i].ID, res, d);
+        console.log("app.js, loop in getEmployees, ID of the object being loopt trough:\n"+ ob[i].ID);
+        fetch.getEmployee(ob[i].ID, res, makeEmployeeList);
     }
 }
 
 
-function myFunction() {
-
+function makeEmployeeList(ob, res) {
+    var list = {employees: []};
+    for (var i = 0; i < ob.length; i++) {
+        list.employees.push(ob[i].firstname);
+    }
+    res.render('employeeChoise', {orders: getOrders(), employees:list});
 }

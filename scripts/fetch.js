@@ -26,7 +26,7 @@ module.exports = {
             });
         });
     },
-    getBranchID: function(y,res, x) {
+    getBranchID: function(y, res, x) {
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
             db.collection("branch").find({"Address.Street" : y},{"ID":1}).toArray(function(err, result) {
