@@ -91,7 +91,7 @@ app.get('/test', function(req, res) {
 app.post('/test',urlencodedParser, function(req, res) {
     console.log("app.js, post, test");
     addToOrder(req.body);
-    res.render('employeeChoise', {orders: getOrders(), branches:branches});
+    res.render('employeeChoice', {orders: getOrders(), branches:branches});
 });
 app.post('/addToOrder',urlencodedParser, function(req, res) {
     console.log("app.js, post, addToOrder");
@@ -132,5 +132,5 @@ function makeEmployeeList(ob, res) {
     for (var i = 0; i < ob.length; i++) {
         list.employees.push(ob[i].firstname);
     }
-    res.render('employeeChoise', {orders: getOrders(), employees:list});
+    res.render('employeeChoice', {orders: getOrders(), employees:list});
 }
