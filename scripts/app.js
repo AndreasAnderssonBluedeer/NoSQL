@@ -17,7 +17,6 @@ function addToOrder(object, res){
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 }
 
-
 function getOrders(){
     return orders;
 }
@@ -29,6 +28,18 @@ function clearOrder(){
 app.use('/styles', express.static('styles'));
 app.use('/images', express.static('images'));
 
+app.post('/branchNames',urlencodedParser, function(req, res) {
+    var selectedName = req.body.branchName;
+    var selectedReport = req.body.reportSelect;
+    console.log(selectedName);
+    console.log(selectedReport);
+    console.log("app.js, post, branchNames");
+});
+app.post('/location_report',urlencodedParser, function(req, res) {
+    console.log("app.js, post, employee");
+    addToOrder(req.body);
+    res.render('employee', {orders: getOrders(), branches:branches});
+});
 app.post('/employee',urlencodedParser, function(req, res) {
     console.log("app.js, post, employee");
     addToOrder(req.body);
@@ -77,7 +88,7 @@ app.get('/', function(req, res) {
 });
 app.get('/locationmanager', function(req, res) {
     console.log("app.js, get, locationmanager");
-    res.render('locationmanager');
+    fetch.getBranchName(res);
 });
 app.get('/memberclub', function(req, res) {
     console.log("app.js, get, memberclub");

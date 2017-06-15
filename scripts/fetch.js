@@ -26,6 +26,22 @@ module.exports = {
             });
         });
     },
+    getBranchName(res){
+
+        MongoClient.connect(getDB(), function(err, db) {
+            if (err) throw err;
+            db.collection("branch").find({}).toArray(function(err, result) {
+                if (err) throw err;
+                var locations = {locations:[]};
+                for (var i = 0; i < result.length; i++) {
+                    locations.locations.push(result[i].Address.Street);
+                }
+                console.log(locations);
+                res.render('locationmanager', {locations:locations});
+                db.close();
+            });
+        });
+    },
     getBranchID: function(y, res, x) {
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
