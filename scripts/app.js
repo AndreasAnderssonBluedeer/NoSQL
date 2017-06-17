@@ -12,7 +12,9 @@ var orders = {orders:[]};
 var branch;
 app.set('view engine', 'ejs');
 function addToOrder(object, res){
-    orders.orders.push({name:object.name, amount:object.amount});
+    var x = orders.orders.length;
+    orders.orders.push({number:orders.orders.length, name:object.name, amount:object.amount});
+    console.log(orders);
     console.log("app.js, addToOrder, the object passed trough as a parameter:\n"+orders);
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 }
@@ -39,6 +41,10 @@ app.post('/location_report',urlencodedParser, function(req, res) {
     console.log("app.js, post, employee");
     addToOrder(req.body);
     res.render('employee', {orders: getOrders(), branches:branches});
+});
+app.post('/removeMe',urlencodedParser, function(req, res) {
+    delete orders.orders[req.body.itemNr];
+    res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 });
 app.post('/employee',urlencodedParser, function(req, res) {
     console.log("app.js, post, employee");

@@ -107,7 +107,10 @@
                         <li>Item Name:
                             <%= item.name %> Amount:
                                 <%= item.amount %>
-                        </li>
+                        </li><form class="form-inline" method="POST" action="/removeMe">
+                            <input type="hidden" name=itemNr value=<%= item.number %>>
+                            <button type="submit" class="btn btn-primary">Remove</button>
+                        </form>
                         <% }); %>
 
                 </ul>
