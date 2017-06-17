@@ -13,16 +13,16 @@ var url = 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject
 
 var order= [{"productid":123,"amount":3},
             {"productid":400,"amount":1}];
-createOrder(123,order,"901112-1010");
+//createOrder(123,order,"901112-1010");
 
 //createNewMember("Albus","Dumbledore","340310-1423","Principal","Hogwartz drive 32",
 //"1111","Hogsmead","United Kingdom","Ireland",false);
 
-createComment("901112-1010","780711-4398","Mouhahah.");
+//createComment("901112-1010","780711-4398","Mouhahah.");
 
 var order2=[{"productid":"5924790ebf0ae68543700e7f","amount":1}];
 
-updateStock(123,order2);
+//updateStock(123,order2);
 
 //Create methods
 
@@ -40,7 +40,6 @@ function createOrder(branchID,orderlist,cashierID){
         db.close();
     });
 }
-
 //Creates a new member in the memberClub including creating a new card. Card counter = 0, Barcode auto_inc
 function createNewMember(firstname,lastname,ssn,occupation,street,zip,city,country,regCountry,isEmployee){
     MongoClient.connect(url, function(err, db) {
@@ -55,8 +54,6 @@ function createNewMember(firstname,lastname,ssn,occupation,street,zip,city,count
         db.close();
     });
 }
-
-
 //creates a comment about an employee
 function createComment(employeeID,employerID,comment){
     if (comment.length>300){
@@ -82,8 +79,6 @@ function createComment(employeeID,employerID,comment){
         });
     }
 }
-
-
 //Update Methods
 //Update stock for a specific branch. Directly called from the createOrder method.
 function updateStock(branchID,orderlist){
@@ -100,4 +95,28 @@ function updateStock(branchID,orderlist){
         console.log("Success");
         db.close();
     });
+}
+module.exports = {
+    insertOrder: function(res, order, fucX){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+
+        });
+    },
+    test: function(res) {
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            db.collection("branch").update({"ID" : "1"}, {"$push" : {"Order":{
+			"ID" : "8",
+			"OrderItem" : "Brewed Coffee",
+			"Amount" : "2",
+			"OrderDate" : new Date()
+        }}}, function(err, res2) {
+                if (err) throw err;
+                console.log(res2.result);
+                res.send(res2);
+                db.close();
+            });
+        });
+    }
 }

@@ -8,6 +8,7 @@ var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var way = "D:/db/NoSQL";
 var fetch = require('./fetch.js');
+var insertDB = require('./insertAndUpdate.js');
 var orders = {orders:[]};
 var branch;
 app.set('view engine', 'ejs');
@@ -18,7 +19,6 @@ function addToOrder(object, res){
     console.log("app.js, addToOrder, the object passed trough as a parameter:\n"+orders);
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 }
-
 function getOrders(){
     return orders;
 }
@@ -58,13 +58,14 @@ app.post('/clear',urlencodedParser, function(req, res) {
 });
 app.post('/send',urlencodedParser, function(req, res) {
     console.log("app.js, post, send");
-    sendOrder();
-    res.render('cashier', getOrders());
+
 });
 app.post('/branch',urlencodedParser, function(req, res) {
     console.log("app.js, post, branch");
-    fetch.getBranchID(req.body.branch , res, getEmployees);
+    branch = req.body.branch;
+    fetch.getBranchID(branch, res, getEmployees);
 });
+
 app.post('/cashier',urlencodedParser, function(req, res) {
     console.log("app.js, post, cashier, chosen cashier:\n"+req.body.cashier);
 
@@ -102,8 +103,7 @@ app.get('/memberclub', function(req, res) {
 });
 app.get('/test', function(req, res) {
     console.log("app.js, get, test");
-    branches = {branches:[]};
-    test(res);
+    insertDB.test(res);
 });
 app.post('/test',urlencodedParser, function(req, res) {
     console.log("app.js, post, test");
@@ -120,9 +120,7 @@ app.listen(3000);
 function getDB(){
     return 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 }
-function sendOrder(){
 
-}
 function setBranchID(ob){
     orders.branchID = ob;
 }
@@ -134,12 +132,11 @@ function getBranches(ob, res){
     }
     res.render('employee', {orders: getOrders(), branches:branches});
 }
-function getEmployees(ob, res, orders) {
+function getEmployees(ob, res) {
     //create function that fetches all the names of employes, or ssn depending on branch.
     for (var i = 0; i < ob.length; i++) {
         console.log("app.js, loop in getEmployees, ID of the object being loopt trough:\n"+ ob[i].ID);
         fetch.getEmployee(ob[i].ID, res, makeEmployeeList);
-
     }
 }
 

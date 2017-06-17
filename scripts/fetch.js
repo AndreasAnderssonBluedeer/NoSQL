@@ -27,7 +27,6 @@ module.exports = {
         });
     },
     getBranchName(res){
-
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
             db.collection("branch").find({}).toArray(function(err, result) {
