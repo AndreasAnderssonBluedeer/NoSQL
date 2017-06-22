@@ -5,7 +5,14 @@ var obj;
 function getDB(){
     return 'mongodb://bobbytables:mightygoodpwd@212.85.88.103:27017/schoolProject';
 }
+//the functions that we want to export to other objects.
 module.exports = {
+    /*
+    function that takes y (branch ID), res to render .ejs files on and x a callback function.
+    it serches the employee document for the employees that work at a certain branch ID.
+    it returns only the "firstname" from the emplyees. and the result is turnd into an array.
+    the result and res are sent back trough the callback function and the connection is closed.
+    */
     getEmployee: function(y , res, x){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
@@ -16,6 +23,10 @@ module.exports = {
             });
         });
     },
+    /*
+    function that takes an callback and a res. fetches the documents in branch
+    and passes the respond and the res trough the callback (x).
+    */
     getAdresses(x, res){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
@@ -26,6 +37,10 @@ module.exports = {
             });
         });
     },
+    /*
+    function that takes a res. gets the branch adresses and then renders
+    locationmanager with the adresses.
+    */
     getBranchName(res){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
@@ -41,6 +56,11 @@ module.exports = {
             });
         });
     },
+    /*
+    function that takes an adress parameter (y), res and a callbackfunction (x).
+    finds the branch with thge adress and returns the branches id.
+    it passes the result and res trough the callback.
+    */
     getBranchID: function(y, res, x) {
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
@@ -51,6 +71,10 @@ module.exports = {
             });
         });
     },
+    /*
+    function that take a callback function (x) nd res as parameters.
+    passes the result from mebersclub and passes them into the callback along with res.
+    */
     getMeberclub: function(x, res){
         MongoClient.connect(getDB(), function(err, db) {
             console.log("memberclub");
