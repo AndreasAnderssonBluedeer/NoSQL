@@ -97,10 +97,19 @@ function updateStock(branchID,orderlist){
     });
 }
 module.exports = {
-    insertOrder: function(res, order, fucX){
+    insertOrder: function(res, order){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-
+            db.collection("branch").update({"ID" : order.branch}, {"$push" : {"Order":{
+			"orderList": order.orders,
+			"OrderDate" : new Date(),
+            "cashier": order.cashier
+        }}}, function(err, res2) {
+                if (err) throw err;
+                console.log(res2.result);
+                res.send(res2);
+                db.close();
+            });
         });
     },
     test: function(res) {
