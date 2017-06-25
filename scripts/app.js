@@ -73,7 +73,7 @@ app.post('/clear',urlencodedParser, function(req, res) {
 //needs to be constructed.
 app.post('/send',urlencodedParser, function(req, res) {
     console.log("app.js, post, send");
-    insertDB.insertOrder(res, orders, clearOrder());
+    insertDB.insertOrder(res, orders, callBackNewRenameLater);
 });
 //POST function used by form in employee.ejs to chose witch branch to use
 //in the order.
@@ -190,4 +190,9 @@ function makeEmployeeList(ob, res) {
     }
     res.render('employeeChoice', {orders: getOrders(), employees:list});
 }
-function
+
+function callBackNewRenameLater(res, res2){
+    console.log(res2.result);
+    clearOrder();
+    res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
+}

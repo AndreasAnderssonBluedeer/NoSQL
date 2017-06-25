@@ -96,8 +96,16 @@ function updateStock(branchID,orderlist){
         db.close();
     });
 }
+// these functions are exporst so we can reach them in other js files.
 module.exports = {
-    insertOrder: function(res, order){
+    /*
+    This function inserts the order made, it finds the ID that exist in our order object
+    and serches for the matching document in the branch collection.
+    We push a new order object on to that ducument.
+    use our callback to send the res from cashier.ejs and the result (res2) from
+    the databse back to app.js.
+    */
+    insertOrder: function(res, order, cbnrl){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             db.collection("branch").update({"ID" : order.branch}, {"$push" : {"Order":{
@@ -106,8 +114,7 @@ module.exports = {
             "cashier": order.cashier
         }}}, function(err, res2) {
                 if (err) throw err;
-                console.log(res2.result);
-                res.send(res2);
+                cbnrl(res, res2);
                 db.close();
             });
         });
@@ -122,7 +129,6 @@ module.exports = {
 			"OrderDate" : new Date()
         }}}, function(err, res2) {
                 if (err) throw err;
-                console.log(res2.result);
                 res.send(res2);
                 db.close();
             });
