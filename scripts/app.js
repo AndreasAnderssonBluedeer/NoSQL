@@ -85,7 +85,7 @@ app.post('/branch',urlencodedParser, function(req, res) {
     fetch.getBranchID(branch, res, getEmployees);
 });
 app.post('/branchEmployer',urlencodedParser, function(req, res) {
-    console.log("app.js, post, branch");
+    console.log("app.js, post, branchEmployer");
     branch = req.body.branch;
     fetch.getBranchID(branch, res, getEmployeesEmployer);
 });
