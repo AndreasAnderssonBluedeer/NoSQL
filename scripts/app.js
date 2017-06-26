@@ -144,6 +144,12 @@ app.post('/addToOrder',urlencodedParser, function(req, res) {
     console.log("app.js, post, addToOrder");
     addToOrder(req.body, res);
 });
+//POST function for the registration of a new member.
+app.post('/newMember',urlencodedParser, function(req, res) {
+    console.log("app.js, post, newMember");
+    console.log(req.body);
+    insertDB.insertMember(req.body, res, anotherCallBack);
+});
 app.listen(3000);
 
 //function that returns the DB connection string.
@@ -195,4 +201,12 @@ function callBackNewRenameLater(res, res2){
     console.log(res2.result);
     clearOrder();
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
+}
+function anotherCallBack(res, res2, boo, n) {
+    if(boo===false){
+        res.render('succes', {name: n });
+    }else{
+        res.render('error');
+    }
+    console.log(res2.result);
 }

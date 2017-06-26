@@ -119,6 +119,39 @@ module.exports = {
             });
         });
     },
+    //function that inserts a new member to the memberclub.
+    insertMember: function(inObject, res, anotherCallBack){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            db.collection("memberclub").insertOne({
+                "firstname": inObject.fname,
+                "lastname": inObject.lname,
+                "ssn": inObject.ssn,
+                "occupation": inObject.occupation,
+                "address":{
+                    "street": inObject.address,
+                    "zip": inObject.zip,
+                    "city": inObject.city,
+                    "country": inObject.country
+                },
+                "card":{
+                    "barcode":new ObjectID(),
+                    //dont know what this is good for? (counter).
+                    "counter":0,
+                    "registrationcountry":inObject.regCountry,
+                    "discount":inObject.isEmployee
+                }
+            }, function(err, res2) {
+                if (err) {
+                    anotherCallBack(res, res, true, inObject.fname)
+                }else{
+                    anotherCallBack(res, res2, false, inObject.fname);
+                    db.close();
+                };
+            });
+        });
+    },
+    //a test function for the database.
     test: function(res) {
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
