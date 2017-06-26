@@ -23,6 +23,16 @@ module.exports = {
             });
         });
     },
+    getEmployer: function(y , res, x){
+        MongoClient.connect(getDB(), function(err, db) {
+            if (err) throw err;
+            db.collection("employee").find({"Branch":y},{"Role":1,"firstname":1}).toArray(function(err, result) {
+                if (err) throw err;
+                x(result, res);
+                db.close();
+            });
+        });
+    },
     /*
     function that takes an callback and a res. fetches the documents in branch
     and passes the respond and the res trough the callback (x).

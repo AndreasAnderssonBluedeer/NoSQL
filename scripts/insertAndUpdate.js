@@ -166,5 +166,25 @@ module.exports = {
                 db.close();
             });
         });
+    },
+    createComment: function(employeeID,employerID,comment){
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            console.log("Connected successfully to server");
+            var collection = db.collection('employee');
+            collection.updateOne(
+                {"id": employeeID}, {
+                    $push: {
+                        "comments": {
+                            "id": new ObjectID(),
+                            "comment": comment,
+                            "date": new Date(),
+                            "author": employerID
+                        }
+                    }
+                }, {upsert: false});
+            console.log("Success");
+            db.close();
+        });
     }
 }

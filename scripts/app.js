@@ -11,6 +11,7 @@ var fetch = require('./fetch.js');
 var insertDB = require('./insertAndUpdate.js');
 var orders = {cashier:"",branch:"", orders:[]};
 var branch;
+comment = {boss:"", cashier:"", comment:"", branch:""};
 app.set('view engine', 'ejs');
 function addToOrder(object, res){
     var x = orders.orders.length;
@@ -82,12 +83,23 @@ app.post('/branch',urlencodedParser, function(req, res) {
     branch = req.body.branch;
     fetch.getBranchID(branch, res, getEmployees);
 });
+app.post('/branchEmployer',urlencodedParser, function(req, res) {
+    console.log("app.js, post, branch");
+    branch = req.body.branch;
+    fetch.getBranchID(branch, res, getEmployeesEmployer);
+});
 //POST function used by form in employeeChoice.ejs to chose witch employeeChoice
 //to use in the order.
 app.post('/cashier',urlencodedParser, function(req, res) {
     console.log("app.js, post, cashier, chosen cashier:\n"+req.body.cashier);
     orders.cashier = req.body.cashier;
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
+});
+app.post('/boss',urlencodedParser, function(req, res) {
+    console.log("app.js, post, boss, chosen Boss:\n"+req.body.cashier);
+    comment = {boss:req.body.boss, cashier:req.body.cashier, comment:req.body.comment};
+    console.log(comment);
+    comment = {boss:"", cashier:"", comment:"", branch:""};
 });
 //POST function to used in the example profile.ejs.
 app.get('/profile/:name', function(req, res) {
@@ -104,7 +116,8 @@ app.get('/employee', function(req, res) {
 //GET function used to render employer.ejs.
 app.get('/employer', function(req, res) {
     console.log("app.js, get, employer");
-    res.render('employer');
+    branches = {branches:[], choise:[]};
+    fetch.getAdresses(getBranchesEmployer, res);
 });
 //GET function to render home.ejs.
 app.get('/home', function(req, res) {
@@ -169,6 +182,13 @@ function getBranches(ob, res){
     }
     res.render('employee', {orders: getOrders(), branches:branches});
 }
+function getBranchesEmployer(ob, res){
+    branches = {branches:[], choise:[]};
+    for (var i = 0; i < ob.length; i++) {
+        branches.branches.push(ob[i].Address.Street);
+    }
+    res.render('employer', {branches:branches});
+}
 /*
 function that is used as a callback to fetch the id of the branch chosen,
 takes the ob (object) parameter witch is the result object from the database in fetch.js,
@@ -196,7 +216,26 @@ function makeEmployeeList(ob, res) {
     }
     res.render('employeeChoice', {orders: getOrders(), employees:list});
 }
+function getEmployeesEmployer(ob, res) {
 
+    for (var i = 0; i < ob.length; i++) {
+        console.log("app.js, loop in getEmployeesEmployer, ID of the object being loopt trough:\n"+ ob[i].ID);
+        orders.branch = ob[i].ID;
+        fetch.getEmployer(ob[i].ID, res, makeEmployeeListEmployer);
+    }
+}
+function makeEmployeeListEmployer(ob, res) {
+    var list = {employees: []};
+    var list2 = {cashiers: []};
+    for (var i = 0; i < ob.length; i++) {
+        if(ob[i].Role==="Boss"){
+            list.employees.push(ob[i].firstname);
+        }else{
+            list2.cashiers.push(ob[i].firstname);
+        }
+    }
+    res.render('employerChoise', {employees:list, cashiers:list2});
+}
 function callBackNewRenameLater(res, res2){
     console.log(res2.result);
     clearOrder();
