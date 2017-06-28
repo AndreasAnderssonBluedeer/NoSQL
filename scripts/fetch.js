@@ -33,6 +33,17 @@ module.exports = {
             });
         });
     },
+    getProductsInStock:function(id,res,x){
+      MongoClient.connect(getDB(), function (err,db) {
+          if (err) throw err;
+          db.collection('branch').find({"ID":id},{"ProductsInStock":1}).toArray(function (err,result) {
+              if (err) throw err;
+              x(result,res);
+              db.close();
+          })
+
+        });
+    },
     getEmployer: function(y , res, x){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
