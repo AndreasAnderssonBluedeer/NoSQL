@@ -22,10 +22,17 @@
                 <a href="/home"><img src="../images/COFFEEBEAVERLOGO.png"></a>
         </div>
         <h4>Minion List!</h4>
-
-        <% employees; %>
-
-
+        <div>
+        <% employees.forEach(function (item){ %>
+            <div class='container'>
+                <h2>Simple Collapsible</h2>
+                <p> <%=item.firstname%>  <%=item.lastname%></p>
+                <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo<%=item.employeeID%>'>
+                    Collapsible</button>
+                <div id='demo<%=item.employeeID%>' class='collapse'><%=item.toString()%></div>
+            </div>
+      <% }); %>
+        </div>
 
 
     </section>

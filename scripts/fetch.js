@@ -23,7 +23,7 @@ module.exports = {
             });
         });
     },
-    getCompleteEmployeeList: function (y,res,x){
+    getCompleteEmployeeList: function (res,x){
         MongoClient.connect(getDB(), function(err, db)  {
             if (err) throw err;
             db.collection('employee').find({},{}).toArray(function (err, result) {

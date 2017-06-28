@@ -130,24 +130,10 @@ function getBranchesEmployer(ob, res){
 //GET Employee list with all info about an employee.
 app.get('/employer-employee-list', function(req, res) {
     console.log("app.js, get, employer-employee-list");
-    fetch.getCompleteEmployeeList(function (ob,res){
-        employees="";
-        for (var i=0;i<ob.length;i++){
-            var html="";
+    fetch.getCompleteEmployeeList(res,function (ob,resp){
 
-            html="<div class='container'>"+
-                "<h2>Simple Collapsible</h2>"+
-                "<p>"+ob[i].firstname+" "+ob[i].lastname+"</p>"+
-                "<button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo'>"+
-                "Simple collapsible</button>"+
-                "<div id='demo' class='collapse'>"+ob[i].toString()+"</div></div>";
-
-            employees+=html;
-        }
-            res.render('employer-employee-list',{employees:employees} );
-        },
-        res);
-
+            resp.render('employer-employee-list',{employees:ob} );
+        });
 });
 
 //GET function to render home.ejs.
