@@ -64,10 +64,10 @@ function createComment(employeeID,employerID,comment){
             console.log("Connected successfully to server");
             var collection = db.collection('employee');
             collection.updateOne(
-                {"id": employeeID}, {
+                {"employeeID": employeeID}, {
                     $push: {
                         "comments": {
-                            "id": new ObjectID(),
+                            "commentId": new ObjectID(),
                             "comment": comment,
                             "date": new Date(),
                             "author": employerID

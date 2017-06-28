@@ -34,7 +34,7 @@
             <form class="form-inline" id="branch" method="POST" action="/boss">
                 <select class="form-control" id="inputBranch" name="boss">
                   <% employees.employees.forEach(function(item){ %>
-                      <option><%= item %></option>
+                      <option value="<%=item.id%>"><%=item.firstname%></option>
                   <% }); %>
                 </select>
                 <br>
@@ -42,7 +42,7 @@
                 <br>
                 <select class="form-control" id="inputBranch" name="cashier">
                   <% cashiers.cashiers.forEach(function(item){ %>
-                      <option><%= item %></option>
+                      <option value='<%=item.id%>'><%= item.firstname %></option>
                   <% }); %>
                 </select>
                 <br>

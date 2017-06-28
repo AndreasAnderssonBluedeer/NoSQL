@@ -246,9 +246,9 @@ function makeEmployeeListEmployer(ob, res) {
     var list2 = {cashiers: []};
     for (var i = 0; i < ob.length; i++) {
         if(ob[i].Role==="Boss"){
-            list.employees.push(ob[i].firstname);
+            list.employees.push({firstname: ob[i].firstname ,id: ob[i].employeeID});
         }else{
-            list2.cashiers.push(ob[i].firstname);
+            list2.cashiers.push({firstname: ob[i].firstname,id: ob[i].employeeID});
         }
     }
     res.render('employerChoise', {employees:list, cashiers:list2});
