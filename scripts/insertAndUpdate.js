@@ -130,13 +130,13 @@ module.exports = {
             console.log("Connected successfully to server");
             var collection = db.collection('employee');
             collection.updateOne(
-                {"employeeID": ObjectId(employeeID)}, {
+                {"employeeID": ObjectId(employeeID) }, {
                     $push: {
                         "comments": {
-                            "commentId": new ObjectID(),
-                            "comment": comment,
+                            "commentId": new ObjectId(),
                             "date": new Date(),
-                            "author": employerID
+                            "comment": comment,
+                            "employerID": employerID
                         }
                     }
                 }, {upsert: false});

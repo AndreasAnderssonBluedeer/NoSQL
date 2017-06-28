@@ -97,10 +97,10 @@ app.post('/cashier',urlencodedParser, function(req, res) {
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 });
 app.post('/boss',urlencodedParser, function(req, res) {
-    console.log("app.js, post, boss, chosen Boss:\n"+req.body.cashier);
+    console.log("app.js, post, boss, chosen Boss:\n"+req.body.boss);
     comment = {boss:req.body.boss, cashier:req.body.cashier, comment:req.body.comment};
     console.log(comment);
-    comment = {boss:"", cashier:"", comment:"", branch:""};
+    //comment = {boss:"", cashier:"", comment:"", branch:""};
     insertDB.createComment(comment.cashier,comment.boss,comment.comment,res);
 });
 //POST function to used in the example profile.ejs.
