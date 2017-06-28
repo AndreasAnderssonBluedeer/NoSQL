@@ -15,27 +15,33 @@
     <script src="../scripts/bootstrap.min.js"></script>
     <script src="../scripts/app.js"></script>
 </head>
-
 <body>
-    <section>
-        <div>
-                <a href="/home"><img src="../images/COFFEEBEAVERLOGO.png"></a>
-        </div>
+        <div><a href="/home"><img src="../images/COFFEEBEAVERLOGO.png"></a></div>
         <h4>Minion List!</h4>
+
         <div>
         <% employees.forEach(function (item){ %>
             <div class='container'>
-                <h2>Simple Collapsible</h2>
-                <p> <%=item.firstname%>  <%=item.lastname%></p>
+                <h4>SSN: <%=item.ssn%></h4>
+                <h5> <%=item.firstname%>  <%=item.lastname%>   branchID: <%=item.Branch%>    Role: <%=item.Role%></h5>
                 <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo<%=item.employeeID%>'>
-                    Collapsible</button>
-                <div id='demo<%=item.employeeID%>' class='collapse'><%=item.toString()%></div>
+                    View Comments</button>
+                <div id='demo<%=item.employeeID%>' class='collapse'>
+                    <h5>Comments:</h5>
+                    <%item.comments.forEach(function(comment){%>
+                    <p><strong>Date: <%=comment.entryDate%>,   EmployerID: <%=comment.employerID%></strong></p>
+                        <p>Comment: <%=comment.comment%></p>
+                    <%});%>
+                    <h5>Employment History:</h5>
+                    <%item.employmenthistory.forEach(function(history){%>
+                    <h5>Role: <%=history.role%>,  Hours a week: <%=history.hoursaweek%></h5>
+                    <h6>StartDate: <%=history.startDate%>,   EndDate: <%=history.endDate%></h6>
+                    <%});%>
+                </div>
+                <hr>
             </div>
       <% }); %>
         </div>
-
-
-    </section>
 
     <!--Footer-->
     <footer class="footer">
