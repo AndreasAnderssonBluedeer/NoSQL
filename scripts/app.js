@@ -101,6 +101,7 @@ app.post('/boss',urlencodedParser, function(req, res) {
     comment = {boss:req.body.boss, cashier:req.body.cashier, comment:req.body.comment};
     console.log(comment);
     comment = {boss:"", cashier:"", comment:"", branch:""};
+    insertDB.createComment(comment.cashier,comment.boss,comment.comment,res);
 });
 //POST function to used in the example profile.ejs.
 app.get('/profile/:name', function(req, res) {

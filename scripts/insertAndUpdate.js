@@ -2,9 +2,9 @@
  * Created by Andreas on 22/5/17.
  */
 
-var MongoClient = require('mongodb').MongoClient,
-ObjectID = require('mongodb').ObjectID
+var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
 
 
 
@@ -55,7 +55,7 @@ function createNewMember(firstname,lastname,ssn,occupation,street,zip,city,count
     });
 }
 //creates a comment about an employee
-function createComment(employeeID,employerID,comment){
+function createComment2(employeeID,employerID,comment,res){
     if (comment.length>300){
         console.log("ERROR, comment exceeds maximum character limit(300).")
     }else {
@@ -75,6 +75,7 @@ function createComment(employeeID,employerID,comment){
                     }
                 }, {upsert: false});
             console.log("Success");
+            res.render('successComment');
             db.close();
         });
     }
@@ -119,6 +120,32 @@ module.exports = {
             });
         });
     },
+    //creates a comment about an employee
+    createComment: function(employeeID,employerID,comment,res){
+    if (comment.length>300){
+        console.log("ERROR, comment exceeds maximum character limit(300).")
+    }else {
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            console.log("Connected successfully to server");
+            var collection = db.collection('employee');
+            collection.updateOne(
+                {"employeeID": ObjectId(employeeID)}, {
+                    $push: {
+                        "comments": {
+                            "commentId": new ObjectID(),
+                            "comment": comment,
+                            "date": new Date(),
+                            "author": employerID
+                        }
+                    }
+                }, {upsert: false});
+            console.log("Success");
+            res.render('successComment');
+            db.close();
+        });
+    }
+},
     //function that inserts a new member to the memberclub.
     insertMember: function(inObject, res, anotherCallBack){
         MongoClient.connect(url, function(err, db) {
@@ -166,25 +193,6 @@ module.exports = {
                 db.close();
             });
         });
-    },
-    createComment: function(employeeID,employerID,comment){
-        MongoClient.connect(url, function (err, db) {
-            if (err) throw err;
-            console.log("Connected successfully to server");
-            var collection = db.collection('employee');
-            collection.updateOne(
-                {"id": employeeID}, {
-                    $push: {
-                        "comments": {
-                            "id": new ObjectID(),
-                            "comment": comment,
-                            "date": new Date(),
-                            "author": employerID
-                        }
-                    }
-                }, {upsert: false});
-            console.log("Success");
-            db.close();
-        });
     }
+
 }
