@@ -33,12 +33,12 @@ module.exports = {
             });
         });
     },
-    getProductsInStock:function(id,res,x){
+    getProductsInStock:function(orders, res, x, insDB){
       MongoClient.connect(getDB(), function (err,db) {
           if (err) throw err;
-          db.collection('branch').find({"ID":id},{"ProductsInStock":1}).toArray(function (err,result) {
+          db.collection('branch').find({"ID":orders.branch},{"ProductsInStock":1}).toArray(function (err,result) {
               if (err) throw err;
-              x(result,res);
+              x(result[0].ProductsInStock, res, insDB, orders);
               db.close();
           })
 

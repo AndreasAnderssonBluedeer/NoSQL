@@ -75,8 +75,19 @@ app.post('/clear',urlencodedParser, function(req, res) {
 //needs to be constructed.
 app.post('/send',urlencodedParser, function(req, res) {
     console.log("app.js, post, send");
+    fetch.getProductsInStock(getOrders(), res, callBackNewRenameLater, insertDB);
+});
+
+/*app.post('/send',urlencodedParser, function(req, res) {
+    console.log("app.js, post, send");
+
+    TODO add a step here that checks the quantety of the products that are being added.
+         if all the orderitems have units left in the database, remove amount that is in order
+         in the database. then add the order to the database.
+
     insertDB.insertOrder(res, orders, callBackNewRenameLater);
 });
+*/
 //POST function used by form in employee.ejs to chose witch branch to use
 //in the order.
 app.post('/branch',urlencodedParser, function(req, res) {
@@ -161,7 +172,7 @@ app.get('/memberclub', function(req, res) {
 //GET function used for testing.
 app.get('/test', function(req, res) {
     console.log("app.js, get, test");
-    insertDB.test(res);
+    fetch.getProductsInStock("56", res, testStorage);
 });
 //POST function used for testing.
 app.post('/test',urlencodedParser, function(req, res) {
@@ -254,9 +265,25 @@ function makeEmployeeListEmployer(ob, res) {
     }
     res.render('employerChoise', {employees:list, cashiers:list2});
 }
-function callBackNewRenameLater(res, res2){
-    console.log(res2.result);
-    clearOrder();
+function callBackNewRenameLater(DBres, res, insDB, CBackOrders){
+    console.log(DBres);
+    console.log(CBackOrders);
+    for (x in CBackOrders.orders){
+        console.log(CBackOrders.orders[x].name);
+        for (y in DBres){
+            if (CBackOrders.orders[x].name === DBres[y].ProductName){
+                var newQuantety=0;
+                if((DBres[y].Quantity-CBackOrders.orders[x].amount)<0){
+                    //there is not enough in the inventory send error message with
+                    //products and amout of products left.
+                }else{
+                    newQuantety = DBres[y].Quantity-CBackOrders.orders[x].amount;
+                    
+                }
+            }
+        }
+    }
+    //clearOrder();
     res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
 }
 function anotherCallBack(res, res2, boo, n) {
@@ -266,4 +293,15 @@ function anotherCallBack(res, res2, boo, n) {
         res.render('error');
     }
     console.log(res2.result);
+}
+function testStorage(result, res){
+    var theResult = result[0];
+    for (var i = 0; i < theResult.ProductsInStock.length; i++) {
+        console.log(theResult.ProductsInStock[i].ProductName);
+    }
+    res.send(theResult);
+}
+
+function callback1(x){
+    console.log(x);
 }
