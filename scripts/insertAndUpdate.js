@@ -99,6 +99,16 @@ function updateStock(branchID,orderlist){
 }
 // these functions are exporst so we can reach them in other js files.
 module.exports = {
+    updateStock: function(orders, ob, res, cbnr2){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            db.collection("branch").update({"ID" : orders.branch}, {$set : {"ProductsInStock" : ob }}, function(err, res2) {
+                if (err) throw err;
+                cbnr2(res, res2, orders);
+                db.close();
+            });
+        });
+    },
     /*
     This function inserts the order made, it finds the ID that exist in our order object
     and serches for the matching document in the branch collection.

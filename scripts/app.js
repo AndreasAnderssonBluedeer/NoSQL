@@ -75,7 +75,7 @@ app.post('/clear',urlencodedParser, function(req, res) {
 //needs to be constructed.
 app.post('/send',urlencodedParser, function(req, res) {
     console.log("app.js, post, send");
-    fetch.getProductsInStock(getOrders(), res, callBackNewRenameLater, insertDB);
+    fetch.getProductsInStock(getOrders(), res, callBackNewRenameLater, insertDB, callBackNew2RenameLater);
 });
 
 /*app.post('/send',urlencodedParser, function(req, res) {
@@ -265,26 +265,32 @@ function makeEmployeeListEmployer(ob, res) {
     }
     res.render('employerChoise', {employees:list, cashiers:list2});
 }
-function callBackNewRenameLater(DBres, res, insDB, CBackOrders){
+function callBackNewRenameLater(DBres, res, insDB, CBackOrders, cBackNew2RenameLater){
     console.log(DBres);
     console.log(CBackOrders);
+
     for (x in CBackOrders.orders){
         console.log(CBackOrders.orders[x].name);
         for (y in DBres){
             if (CBackOrders.orders[x].name === DBres[y].ProductName){
-                var newQuantety=0;
+                console.log(DBres[y].ProductName);
+
                 if((DBres[y].Quantity-CBackOrders.orders[x].amount)<0){
                     //there is not enough in the inventory send error message with
                     //products and amout of products left.
                 }else{
-                    newQuantety = DBres[y].Quantity-CBackOrders.orders[x].amount;
-                    
+                    DBres[y].Quantity = DBres[y].Quantity-CBackOrders.orders[x].amount;
                 }
             }
         }
     }
-    //clearOrder();
-    res.render('cashier', {cashier: orders.cashier, orders: getOrders()});
+    insDB.updateStock(CBackOrders, DBres, res, callBackNew2RenameLater);
+    clearOrder();
+
+}
+function callBackNew2RenameLater(res, res2, ord){
+    console.log(res2.result);
+    res.render('cashier', {cashier: ord.cashier, branch:ord.branch, orders: getOrders()});
 }
 function anotherCallBack(res, res2, boo, n) {
     if(boo===false){
