@@ -35,19 +35,15 @@
         </div2>
 
         <div class="form-group">
-            <label for="inputBranch">Which branch do you manage?</label>
+            <label for="inputBranch">between what dates?</label>
 
   <form class="form-inline" id="branch" method="POST" action="/branchNames">
       <select class="form-control" id="branchName" name = "branchName">
           <% locations.locations.forEach(function(item){ %>
-              <option value="<%=item.id%>"><%= item.street %></option>
+              <option><%= item %></option>
           <% }); %>
       </select>
-      <select class="form-control" data-target=".my-info-1" name = "reportSelect">
-          <option>----Select report----</option>
-    <option value="sales_time">Sales during time</option>
-    <option value="orders_employee_time">Orders per employee and time</option>
-    </select>
+      
       <button type="submit" class="btn btn-primary">submit</button>
   </form>
         </div>

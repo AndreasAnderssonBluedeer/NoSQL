@@ -7,6 +7,17 @@ function getDB(){
 }
 //the functions that we want to export to other objects.
 module.exports = {
+    getTheOrders:function(branch){
+      MongoClient.connect(getDB(), function (err,db) {
+          if (err) throw err;
+          db.collection('branch').find({"ID":branch},{"Order":1}).toArray(function (err,result) {
+              if (err) throw err;
+              console.log(result[0]);
+              db.close();
+          })
+
+        });
+    },
     /*
     function that takes y (branch ID), res to render .ejs files on and x a callback function.
     it serches the employee document for the employees that work at a certain branch ID.
@@ -79,7 +90,7 @@ module.exports = {
                 if (err) throw err;
                 var locations = {locations:[]};
                 for (var i = 0; i < result.length; i++) {
-                    locations.locations.push(result[i].Address.Street);
+                    locations.locations.push({street: result[i].Address.Street, id:result[i].ID});
                 }
                 console.log(locations);
                 res.render('locationmanager', {locations:locations});
@@ -101,7 +112,7 @@ module.exports = {
                 db.close();
             });
         });
-    },
+    }, 
     /*
     function that take a callback function (x) nd res as parameters.
     passes the result from mebersclub and passes them into the callback along with res.

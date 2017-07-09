@@ -43,6 +43,18 @@ app.post('/branchNames',urlencodedParser, function(req, res) {
     console.log(selectedName);
     console.log(selectedReport);
     console.log("app.js, post, branchNames");
+    if(req.body.reportSelect==="sales_time"){
+        fetch.getTheOrders();
+        //sales during time
+        /*
+        righty o, send this fucker to the database, just fetch the fucking orderlist for the fucking
+        branch, get the damn dates, save them as a fucking array. put it on the next page as
+        as 2 choises. where we just put the damn dates inbetween. have a fnction that dose a
+        bigest smallest evaluation and then send it to get the orders from the database. im kinda sick of this shit now.
+        */
+    }else{
+        //the other one.
+    }
 });
 //POST function used by form in sales_report.ejs
 // is not yet done as it still is a copy of another POST function.
@@ -78,16 +90,6 @@ app.post('/send',urlencodedParser, function(req, res) {
     fetch.getProductsInStock(getOrders(), res, callBackNewRenameLater, insertDB, callBackNew2RenameLater);
 });
 
-/*app.post('/send',urlencodedParser, function(req, res) {
-    console.log("app.js, post, send");
-
-    TODO add a step here that checks the quantety of the products that are being added.
-         if all the orderitems have units left in the database, remove amount that is in order
-         in the database. then add the order to the database.
-
-    insertDB.insertOrder(res, orders, callBackNewRenameLater);
-});
-*/
 //POST function used by form in employee.ejs to chose witch branch to use
 //in the order.
 app.post('/branch',urlencodedParser, function(req, res) {
