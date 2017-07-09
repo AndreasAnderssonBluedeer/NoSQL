@@ -38,13 +38,13 @@ app.use('/scripts', express.static('scripts'));
 //POST function used by the form in locationmanager.ejs,
 //the choises in the form are extracted trough req (request)
 app.post('/branchNames',urlencodedParser, function(req, res) {
-    var selectedName = req.body.branchName;
+    var selectedId = req.body.branchName;
     var selectedReport = req.body.reportSelect;
-    console.log(selectedName);
+    console.log(selectedId);
     console.log(selectedReport);
     console.log("app.js, post, branchNames");
     if(req.body.reportSelect==="sales_time"){
-        fetch.getTheOrders();
+        fetch.getTheOrders(selectedId , res);
         //sales during time
         /*
         righty o, send this fucker to the database, just fetch the fucking orderlist for the fucking
