@@ -7,12 +7,23 @@ function getDB(){
 }
 //the functions that we want to export to other objects.
 module.exports = {
-    getTheOrders:function(branch){
+    getTheOrders:function(branch, res, x){
       MongoClient.connect(getDB(), function (err,db) {
           if (err) throw err;
           db.collection('branch').find({"ID":branch},{"Order":1}).toArray(function (err,result) {
               if (err) throw err;
-              console.log(result[0]);
+              x(result[0], res, branch);
+              db.close();
+          })
+
+        });
+    },
+    getTheOrders2:function(branch, start, end, res, x){
+      MongoClient.connect(getDB(), function (err,db) {
+          if (err) throw err;
+          db.collection('branch').find({"ID":branch},{"Order":1}).toArray(function (err,result) {
+              if (err) throw err;
+              x(result[0], start, end, res);
               db.close();
           })
 
@@ -112,7 +123,7 @@ module.exports = {
                 db.close();
             });
         });
-    }, 
+    },
     /*
     function that take a callback function (x) nd res as parameters.
     passes the result from mebersclub and passes them into the callback along with res.

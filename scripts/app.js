@@ -44,7 +44,7 @@ app.post('/branchNames',urlencodedParser, function(req, res) {
     console.log(selectedReport);
     console.log("app.js, post, branchNames");
     if(req.body.reportSelect==="sales_time"){
-        fetch.getTheOrders(selectedId , res);
+        fetch.getTheOrders(selectedId, res, createDateArray);
         //sales during time
         /*
         righty o, send this fucker to the database, just fetch the fucking orderlist for the fucking
@@ -194,6 +194,21 @@ app.post('/newMember',urlencodedParser, function(req, res) {
     console.log(req.body);
     insertDB.insertMember(req.body, res, anotherCallBack);
 });
+app.post('/sales_during_time_report',urlencodedParser, function(req, res) {
+    console.log("app.js, post, newMember");
+    console.log(req.body.firstDate);
+    console.log(req.body.secondDate);
+    console.log(req.body.id);
+    if(req.body.firstDate>req.body.secondDate){
+        fetch.getTheOrders2(req.body.id, req.body.secondDate, req.body.firstDate, res, callbackMakeListOfStuffs);
+    }else if (req.body.secondDate>req.body.firstDate) {
+        fetch.getTheOrders2(req.body.id, req.body.firstDate, req.body.secondDate, res, callbackMakeListOfStuffs);
+    }else{
+        fetch.getTheOrders2(req.body.id, req.body.firstDate, req.body.secondDate, res, callbackMakeListOfStuffs);
+    }
+
+});
+
 app.listen(3000);
 
 //function that returns the DB connection string.
@@ -310,6 +325,36 @@ function testStorage(result, res){
     res.send(theResult);
 }
 
-function callback1(x){
-    console.log(x);
+function createDateArray(x, res, id){
+    var dateArray = [];
+    var fdate = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+    dateArray.push(fdate);
+    for(i in x.Order){
+        if(fdate===x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate()){
+        }else{
+            dateArray.push(x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate());
+            fdate=x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate();
+        }
+    }
+    res.render('sales_during_time', {dates:dateArray,  id:id});
+}
+function callbackMakeListOfStuffs(x, start, end, res){
+    var totalSale = [{name:"Whole-Bean Coffee", amount:0}, {name:"Espresso Roast", amount:0}, {name:"Whole Bean French", amount:0},
+    {name:"Whole Bean Light Roast", amount:0}, {name:"Brewed Coffee", amount:0}, {name:"Espresso", amount:0}, {name:"Latte", amount:0},
+    {name:"Capuccino", amount:0}, {name:"Hot Chocolate", amount:0}, {name:"Skim Milk", amount:0}, {name:"Soy Milk", amount:0}, {name:"Whole Milk", amount:0},
+    {name:"2% Milk", amount:0}, {name:"Whipped Cream", amount:0}, {name:"Vanilla Syrup", amount:0}, {name:"Caramel Syrup", amount:0}, {name:"Irish Cream Syrup", amount:0}];
+
+    for(i in x.Order){
+        var date = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+        if((date>=start)&&(date<=end)){
+            for(j in x.Order[i].orderList){
+                for(ii in totalSale){
+                    if(totalSale[ii].name===x.Order[i].orderList[j].name){
+                        totalSale[ii].amount=totalSale[ii].amount+parseInt(x.Order[i].orderList[j].amount);
+                    }
+                }
+            }
+        }
+    }
+    res.render("com up with somthing fuckwit", {tatal:totalSale});
 }
