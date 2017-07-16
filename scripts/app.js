@@ -391,10 +391,8 @@ function callbackMakeListOfStuffs(x, start, end, res, name){
     {name:"2% Milk", amount:0}, {name:"Whipped Cream", amount:0}, {name:"Vanilla Syrup", amount:0}, {name:"Caramel Syrup", amount:0}, {name:"Irish Cream Syrup", amount:0}];
     if (name === undefined || name === null) {
         for(i in x.Order){
-            var month = x.Order[0].OrderDate.getMonth()+1;
-            console.log(x.Order[0].OrderDate.getMonth()+1);
-            console.log('chek');
-            var date = x.Order[0].OrderDate.getFullYear()+"-"+month+"-"+x.Order[0].OrderDate.getDate();
+            var month = x.Order[i].OrderDate.getMonth()+1;
+            var date = x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[0].OrderDate.getDate();
             if((date>=start)&&(date<=end)){
                 for(j in x.Order[i].orderList){
                     for(ii in totalSale){
@@ -408,7 +406,8 @@ function callbackMakeListOfStuffs(x, start, end, res, name){
         res.render("sales_during_time_report", {total:totalSale});
     }else{
         for(i in x.Order){
-            var date = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+            var month = x.Order[i].OrderDate.getMonth()+1;
+            var date = x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[i].OrderDate.getDate();
             if((date>=start)&&(date<=end)&&(name===x.Order[i].cashier)){
                 for(j in x.Order[i].orderList){
                     for(ii in totalSale){
