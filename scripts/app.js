@@ -348,26 +348,30 @@ function testStorage(result, res){
 }
 function createDateArray(x, res, id){
     var dateArray = [];
-    var fdate = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+    var month = x.Order[0].OrderDate.getMonth()+1;
+    var fdate = x.Order[0].OrderDate.getFullYear()+"-"+month+"-"+x.Order[0].OrderDate.getDate();
     dateArray.push(fdate);
     for(i in x.Order){
-        if(fdate===x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate()){
+        var month = x.Order[i].OrderDate.getMonth()+1;
+        if(fdate===x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[i].OrderDate.getDate()){
         }else{
-            dateArray.push(x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate());
-            fdate=x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate();
+            dateArray.push(x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[i].OrderDate.getDate());
+            fdate=x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[i].OrderDate.getDate();
         }
     }
     res.render('sales_during_time', {dates:dateArray,  id:id});
 }
 function createDateArray2(x, res, id){
     var dateArray = [];
-    var fdate = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+    var month = x.Order[0].OrderDate.getMonth()+1;
+    var fdate = x.Order[0].OrderDate.getFullYear()+"-"+month+"-"+x.Order[0].OrderDate.getDate();
     dateArray.push(fdate);
     for(i in x.Order){
-        if(fdate===x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate()){
+        var month = x.Order[i].OrderDate.getMonth()+1;
+        if(fdate===x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[i].OrderDate.getDate()){
         }else{
-            dateArray.push(x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate());
-            fdate=x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate();
+            dateArray.push(x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[i].OrderDate.getDate());
+            fdate=x.Order[i].OrderDate.getFullYear()+"-"+month+"-"+x.Order[i].OrderDate.getDate();
         }
     }
     fetch.getEmployee2(id, dateArray, res, thecallbackfunctionyetcreated);
@@ -387,7 +391,10 @@ function callbackMakeListOfStuffs(x, start, end, res, name){
     {name:"2% Milk", amount:0}, {name:"Whipped Cream", amount:0}, {name:"Vanilla Syrup", amount:0}, {name:"Caramel Syrup", amount:0}, {name:"Irish Cream Syrup", amount:0}];
     if (name === undefined || name === null) {
         for(i in x.Order){
-            var date = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+            var month = x.Order[0].OrderDate.getMonth()+1;
+            console.log(x.Order[0].OrderDate.getMonth()+1);
+            console.log('chek');
+            var date = x.Order[0].OrderDate.getFullYear()+"-"+month+"-"+x.Order[0].OrderDate.getDate();
             if((date>=start)&&(date<=end)){
                 for(j in x.Order[i].orderList){
                     for(ii in totalSale){
