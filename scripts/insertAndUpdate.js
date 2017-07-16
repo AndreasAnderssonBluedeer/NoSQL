@@ -99,12 +99,12 @@ function updateStock(branchID,orderlist){
 }
 // these functions are exporst so we can reach them in other js files.
 module.exports = {
-    updateStock: function(orders, ob, res, cbnr2){
+    updateStock: function(orders, ob, res, cbnr2, cbnr3, insDB){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             db.collection("branch").update({"ID" : orders.branch}, {$set : {"ProductsInStock" : ob }}, function(err, res2) {
                 if (err) throw err;
-                cbnr2(res, res2, orders);
+                cbnr2(res, res2, orders, cbnr3, insDB);
                 db.close();
             });
         });
@@ -116,7 +116,7 @@ module.exports = {
     use our callback to send the res from cashier.ejs and the result (res2) from
     the databse back to app.js.
     */
-    insertOrder: function(res, order, cbnrl){
+    insertOrder: function(res, order, cbnr3){
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             db.collection("branch").update({"ID" : order.branch}, {"$push" : {"Order":{
@@ -125,7 +125,7 @@ module.exports = {
             "cashier": order.cashier
         }}}, function(err, res2) {
                 if (err) throw err;
-                cbnrl(res, res2);
+                cbnr3(res, res2, order);
                 db.close();
             });
         });

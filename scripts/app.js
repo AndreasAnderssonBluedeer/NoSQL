@@ -87,7 +87,7 @@ app.post('/clear',urlencodedParser, function(req, res) {
 //needs to be constructed.
 app.post('/send',urlencodedParser, function(req, res) {
     console.log("app.js, post, send");
-    fetch.getProductsInStock(getOrders(), res, callBackNewRenameLater, insertDB, callBackNew2RenameLater);
+    fetch.getProductsInStock(getOrders(), res, callBackNewRenameLater, insertDB, callBackNew2RenameLater, callBackNew3RenameLater);
 });
 
 //POST function used by form in employee.ejs to chose witch branch to use
@@ -282,7 +282,7 @@ function makeEmployeeListEmployer(ob, res) {
     }
     res.render('employerChoise', {employees:list, cashiers:list2});
 }
-function callBackNewRenameLater(DBres, res, insDB, CBackOrders, cBackNew2RenameLater){
+function callBackNewRenameLater(DBres, res, insDB, CBackOrders, cBN2RL, cBN3RL){
     console.log(DBres);
     console.log(CBackOrders);
 
@@ -301,13 +301,17 @@ function callBackNewRenameLater(DBres, res, insDB, CBackOrders, cBackNew2RenameL
             }
         }
     }
-    insDB.updateStock(CBackOrders, DBres, res, callBackNew2RenameLater);
-    clearOrder();
-
+    insDB.updateStock(CBackOrders, DBres, res, cBN2RL, cBN3RL, insDB);
 }
-function callBackNew2RenameLater(res, res2, ord){
+function callBackNew2RenameLater(res, res2, ord, cBN3RL, insDB){
+    console.log(res2.result);
+    insDB.insertOrder(res, ord, cBN3RL)
+    res.render('cashier', {cashier: ord.cashier, branch:ord.branch, orders: getOrders()});
+}
+function callBackNew3RenameLater(res, res2, ord){
     console.log(res2.result);
     res.render('cashier', {cashier: ord.cashier, branch:ord.branch, orders: getOrders()});
+    clearOrder();
 }
 function anotherCallBack(res, res2, boo, n) {
     if(boo===false){
@@ -356,5 +360,5 @@ function callbackMakeListOfStuffs(x, start, end, res){
             }
         }
     }
-    res.render("com up with somthing fuckwit", {tatal:totalSale});
+    res.render("sales_during_time_report", {total:totalSale});
 }
