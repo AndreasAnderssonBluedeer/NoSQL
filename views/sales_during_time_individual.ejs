@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="images/cb_icon.ico" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Style CSS -->
+    <link href="styles/home.css" rel="stylesheet" type="text/css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="scripts/jquery.min.js"></script>
+    <!-- Bootstrap Javascript -->
+    <script src="scripts/bootstrap.min.js"></script>
+    <!-- Javascript -->
+    <!--<script src="scripts/app.js"></script>-->
+    <meta charset="UTF-8">
+    <title>Location Manager - CB </title>
+    <script src="scripts/location.js"></script>
+</head>
+
+<body>
+
+    <section>
+        <div id="div">
+            <p>
+                <a href="/home">
+      <img src="images/COFFEEBEAVERLOGO.png">
+    </a>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="inputBranch">between what dates?</label>
+
+            <form class="form-inline" id="branch" method="POST" action="/sales_during_time_report_individual">
+                <select class="form-control" id="branchName" name="firstDate">
+                      <% dates.forEach(function(item){ %>
+                          <option><%= item %></option>
+                      <% }); %>
+                  </select>
+                  <select class="form-control" id="branchName" name="secondDate">
+                        <% dates.forEach(function(item){ %>
+                            <option><%= item %></option>
+                        <% }); %>
+                    </select>
+                    <select class="form-control" id="branchName" name="name">
+                          <% name.forEach(function(item){ %>
+                              <option><%= item %></option>
+                          <% }); %>
+                      </select>
+                    <input type="hidden" name="id" value="<%= id %>">
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
+        </div>
+
+    </section>
+
+    <!--Footer-->
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">NoSQL project by Andreas Andersson, Gabriel Ekstedt, Jody O'Neil and Sara-Sofia Lundin</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

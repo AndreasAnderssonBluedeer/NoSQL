@@ -18,12 +18,12 @@ module.exports = {
 
         });
     },
-    getTheOrders2:function(branch, start, end, res, x){
+    getTheOrders2:function(branch, start, end, res, x, name){
       MongoClient.connect(getDB(), function (err,db) {
           if (err) throw err;
           db.collection('branch').find({"ID":branch},{"Order":1}).toArray(function (err,result) {
               if (err) throw err;
-              x(result[0], start, end, res);
+              x(result[0], start, end, res, name);
               db.close();
           })
 
@@ -35,12 +35,22 @@ module.exports = {
     it returns only the "firstname" from the emplyees. and the result is turnd into an array.
     the result and res are sent back trough the callback function and the connection is closed.
     */
-    getEmployee: function(y , res, x){
+    getEmployee: function(id , res, x){
         MongoClient.connect(getDB(), function(err, db) {
             if (err) throw err;
-            db.collection("employee").find({"Branch":y},{"firstname":1}).toArray(function(err, result) {
+            db.collection("employee").find({"Branch":id},{"firstname":1}).toArray(function(err, result) {
                 if (err) throw err;
                 x(result, res);
+                db.close();
+            });
+        });
+    },
+    getEmployee2: function(id, dateArray, res, x){
+        MongoClient.connect(getDB(), function(err, db) {
+            if (err) throw err;
+            db.collection("employee").find({"Branch":id},{"firstname":1}).toArray(function(err, result) {
+                if (err) throw err;
+                x(result, res, id, dateArray);
                 db.close();
             });
         });

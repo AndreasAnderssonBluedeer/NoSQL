@@ -53,6 +53,7 @@ app.post('/branchNames',urlencodedParser, function(req, res) {
         bigest smallest evaluation and then send it to get the orders from the database. im kinda sick of this shit now.
         */
     }else{
+        fetch.getTheOrders(selectedId, res, createDateArray2);
         //the other one.
     }
 });
@@ -208,6 +209,22 @@ app.post('/sales_during_time_report',urlencodedParser, function(req, res) {
     }
 
 });
+app.post('/sales_during_time_report_individual',urlencodedParser, function(req, res) {
+    console.log("app.js, post, newMember");
+    console.log(req.body.firstDate);
+    console.log(req.body.secondDate);
+    console.log(req.body.id);
+    console.log(req.body.name);
+
+    if(req.body.firstDate>req.body.secondDate){
+        fetch.getTheOrders2(req.body.id, req.body.secondDate, req.body.firstDate, res, callbackMakeListOfStuffs, req.body.name);
+    }else if (req.body.secondDate>req.body.firstDate) {
+        fetch.getTheOrders2(req.body.id, req.body.firstDate, req.body.secondDate, res, callbackMakeListOfStuffs, req.body.name);
+    }else{
+        fetch.getTheOrders2(req.body.id, req.body.firstDate, req.body.secondDate, res, callbackMakeListOfStuffs, req.body.name);
+    }
+
+});
 
 app.listen(3000);
 
@@ -302,6 +319,8 @@ function callBackNewRenameLater(DBres, res, insDB, CBackOrders, cBN2RL, cBN3RL){
         }
     }
     insDB.updateStock(CBackOrders, DBres, res, cBN2RL, cBN3RL, insDB);
+    clearOrder();
+
 }
 function callBackNew2RenameLater(res, res2, ord, cBN3RL, insDB){
     console.log(res2.result);
@@ -311,7 +330,6 @@ function callBackNew2RenameLater(res, res2, ord, cBN3RL, insDB){
 function callBackNew3RenameLater(res, res2, ord){
     console.log(res2.result);
     res.render('cashier', {cashier: ord.cashier, branch:ord.branch, orders: getOrders()});
-    clearOrder();
 }
 function anotherCallBack(res, res2, boo, n) {
     if(boo===false){
@@ -328,7 +346,6 @@ function testStorage(result, res){
     }
     res.send(theResult);
 }
-
 function createDateArray(x, res, id){
     var dateArray = [];
     var fdate = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
@@ -342,23 +359,59 @@ function createDateArray(x, res, id){
     }
     res.render('sales_during_time', {dates:dateArray,  id:id});
 }
-function callbackMakeListOfStuffs(x, start, end, res){
+function createDateArray2(x, res, id){
+    var dateArray = [];
+    var fdate = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+    dateArray.push(fdate);
+    for(i in x.Order){
+        if(fdate===x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate()){
+        }else{
+            dateArray.push(x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate());
+            fdate=x.Order[i].OrderDate.getFullYear()+"-"+x.Order[i].OrderDate.getMonth()+"-"+x.Order[i].OrderDate.getDate();
+        }
+    }
+    fetch.getEmployee2(id, dateArray, res, thecallbackfunctionyetcreated);
+    //res.render('sales_during_time', {dates:dateArray,  id:id});
+}
+function thecallbackfunctionyetcreated(result, res, id, dateArray) {
+    nameArray = [];
+    for(i in result){
+        nameArray.push(result[i].firstname);
+    }
+    res.render('sales_during_time_individual', {dates:dateArray,  id:id, name:nameArray})
+}
+function callbackMakeListOfStuffs(x, start, end, res, name){
     var totalSale = [{name:"Whole-Bean Coffee", amount:0}, {name:"Espresso Roast", amount:0}, {name:"Whole Bean French", amount:0},
     {name:"Whole Bean Light Roast", amount:0}, {name:"Brewed Coffee", amount:0}, {name:"Espresso", amount:0}, {name:"Latte", amount:0},
     {name:"Capuccino", amount:0}, {name:"Hot Chocolate", amount:0}, {name:"Skim Milk", amount:0}, {name:"Soy Milk", amount:0}, {name:"Whole Milk", amount:0},
     {name:"2% Milk", amount:0}, {name:"Whipped Cream", amount:0}, {name:"Vanilla Syrup", amount:0}, {name:"Caramel Syrup", amount:0}, {name:"Irish Cream Syrup", amount:0}];
-
-    for(i in x.Order){
-        var date = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
-        if((date>=start)&&(date<=end)){
-            for(j in x.Order[i].orderList){
-                for(ii in totalSale){
-                    if(totalSale[ii].name===x.Order[i].orderList[j].name){
-                        totalSale[ii].amount=totalSale[ii].amount+parseInt(x.Order[i].orderList[j].amount);
+    if (name === undefined || name === null) {
+        for(i in x.Order){
+            var date = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+            if((date>=start)&&(date<=end)){
+                for(j in x.Order[i].orderList){
+                    for(ii in totalSale){
+                        if(totalSale[ii].name===x.Order[i].orderList[j].name){
+                            totalSale[ii].amount=totalSale[ii].amount+parseInt(x.Order[i].orderList[j].amount);
+                        }
                     }
                 }
             }
         }
+        res.render("sales_during_time_report", {total:totalSale});
+    }else{
+        for(i in x.Order){
+            var date = x.Order[0].OrderDate.getFullYear()+"-"+x.Order[0].OrderDate.getMonth()+"-"+x.Order[0].OrderDate.getDate();
+            if((date>=start)&&(date<=end)&&(name===x.Order[i].cashier)){
+                for(j in x.Order[i].orderList){
+                    for(ii in totalSale){
+                        if(totalSale[ii].name===x.Order[i].orderList[j].name){
+                            totalSale[ii].amount=totalSale[ii].amount+parseInt(x.Order[i].orderList[j].amount);
+                        }
+                    }
+                }
+            }
+        }
+        res.render("sales_during_time_report_individual", {total:totalSale, name});
     }
-    res.render("sales_during_time_report", {total:totalSale});
 }

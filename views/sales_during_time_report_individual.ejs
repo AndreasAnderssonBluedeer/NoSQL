@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="images/cb_icon.ico" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Style CSS -->
+    <link href="styles/home.css" rel="stylesheet" type="text/css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="scripts/jquery.min.js"></script>
+    <!-- Bootstrap Javascript -->
+    <script src="scripts/bootstrap.min.js"></script>
+    <!-- Javascript -->
+    <!--<script src="scripts/app.js"></script>-->
+    <meta charset="UTF-8">
+    <title>Location Manager - CB </title>
+    <script src="scripts/location.js"></script>
+</head>
+
+<body>
+
+    <section>
+        <div id="div">
+            <p>
+                <a href="/home">
+      <img src="images/COFFEEBEAVERLOGO.png">
+    </a>
+            </p>
+        </div>
+        <div class="form-group">
+            <p> <%=name%> </p>
+            <% total.forEach(function(item){ %>
+                <b>Item: <%= item.name %> amount sould during selected time <%= item.amount %>. </b><br>
+            <% }); %>
+
+
+
+        </div>
+
+    </section>
+
+    <!--Footer-->
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">NoSQL project by Andreas Andersson, Gabriel Ekstedt, Jody O'Neil and Sara-Sofia Lundin</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
